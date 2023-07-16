@@ -1,11 +1,29 @@
-import Image from 'next/image'
+'use client';
+
+import { useAppDispatch, useAppSelector } from "@/redux/store"
+import { addTitle, addBody } from "@/redux/features/postSlice";
 
 export default function Home() {
+  const dispatch = useAppDispatch()
+  const post = useAppSelector((state) => state.post)
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-6xl text-white font-bold text-center">
-        Stylioo website
-      </h1>
-    </main>
+    <div>
+      <div className="flex flex-col mb-4">
+        <div className="flex flex-col">
+          <label htmlFor="title">Title</label>
+          <input id='title' type="text" onChange={(e) => dispatch(addTitle(e.target.value))} />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="body">Body</label>
+          <input id='body' type="text" onChange={(e) => dispatch(addBody(e.target.value))} />
+        </div>
+      </div>
+      <p className="text-xl">{post.title}</p>
+      <p className="text-xl">{post.body}</p>
+
+    </div>
   )
 }
+
+
