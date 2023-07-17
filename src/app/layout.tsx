@@ -1,32 +1,44 @@
 import './globals.scss'
-import { Inter } from 'next/font/google'
+import { Inter, DM_Mono, Roboto } from 'next/font/google'
 import ReduxProvider from '@/redux/Provider'
+
+import { childrenPropType } from '@/types'
 
 import Navbar from './Navbar'
 
-const inter = Inter({ subsets: ['latin'] })
+export const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const roboto = Roboto({
+  weight: '300',
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+})
+
+export const dm_mono = DM_Mono({
+  weight: "300",
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+})
+
 
 export const metadata = {
   title: 'Stylioo',
   description: 'Stylioo - Online Salon Reservation System',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: childrenPropType) {
   return (
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={inter.className}
+        className={roboto.className}
       >
         <ReduxProvider>
           <Navbar />
-          <main className="max-w-7xl mx-auto mt-4 px-4">
-            {children}
-          </main>
+          {children}
         </ReduxProvider>
       </body>
     </html>
