@@ -1,8 +1,8 @@
-import { childrenPropType } from '@/types'
+import { appContainerPropType } from "@/types"
 
-function AppContainer({ children }: childrenPropType) {
+function AppContainer({ children, className }: appContainerPropType) {
     return (
-        <main className="max-w-7xl mx-auto px-4">
+        <main className={`max-w-7xl mx-auto px-4 ${className}`}>
             {children}
         </main>
     )

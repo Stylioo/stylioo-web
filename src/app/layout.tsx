@@ -1,21 +1,10 @@
 import './globals.scss'
-import { Inter, DM_Mono, Roboto } from 'next/font/google'
+import { DM_Mono } from 'next/font/google'
 import ReduxProvider from '@/redux/Provider'
 
 import { childrenPropType } from '@/types'
 
 import Navbar from './Navbar'
-
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
-
-const roboto = Roboto({
-  weight: '300',
-  subsets: ['latin', 'latin-ext'],
-  display: 'swap',
-})
 
 export const dm_mono = DM_Mono({
   weight: "300",
@@ -33,8 +22,7 @@ export default function RootLayout({ children }: childrenPropType) {
   return (
     <html lang="en">
       <body
-        suppressHydrationWarning={true}
-        className={roboto.className}
+        className={dm_mono.className}
       >
         <ReduxProvider>
           <Navbar />

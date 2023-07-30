@@ -1,3 +1,3 @@
-import { childrenPropType } from './childrenPropType'
+import { childrenPropType, appContainerPropType } from './uiElementPropType'
 
-export type { childrenPropType }
+export type { childrenPropType, appContainerPropType }
