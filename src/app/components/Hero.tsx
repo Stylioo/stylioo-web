@@ -15,7 +15,7 @@ function Hero() {
                 alt="" />
             <AppContainer className="h-full">
                 <div className="h-full flex flex-col justify-center items-center text-center gap-4">
-                    <div className="text-7xl text-white font-bold flex flex-col gap-4 md:flex-row mb-4 ">
+                    <div className="text-6xl md:text-7xl text-white font-bold flex flex-col gap-4 md:flex-row mb-4 ">
                         <p>EMBRACE</p>
                         <p>THE</p>
                         <p>STYLE</p>
