@@ -1,4 +1,4 @@
-import AppContainer from "@/components/AppContainer"
+import Section from "@/components/Section"
 import Image from "next/image"
 import Link from "next/link"
 import '@/styles/homePage.scss'
@@ -13,7 +13,7 @@ function Hero() {
                 src="https://stylioo.blob.core.windows.net/images/herobg1.png"
                 // src="https://stylioo.blob.core.windows.net/images/herobg2.jpg"
                 alt="" />
-            <AppContainer className="h-full">
+            <Section className="h-full">
                 <div className="h-full flex flex-col items-center text-center gap-4 mt-12">
                     <div className="text-6xl md:text-7xl text-white font-bold flex flex-col gap-4 md:flex-row mb-4 ">
                         <p>EMBRACE</p>
@@ -29,7 +29,7 @@ function Hero() {
                     <div className="middle" ></div>
                 </div>
 
-            </AppContainer>
+            </Section>
         </div>
     )
 }

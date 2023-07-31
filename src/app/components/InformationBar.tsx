@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import AppContainer from '@/components/AppContainer'
+import Section from '@/components/Section'
 
 import HareDresser from '@/assets/images/icons8-hairdresser-100.png'
 import Chair from '@/assets/images/icons8-barber-chair-100.png'
@@ -9,7 +9,7 @@ import Products from '@/assets/images/icons8-perfume-100.png'
 function InformationBar() {
     return (
         <>
-            <AppContainer
+            <Section
                 className=''
             >
                 <div className='flex flex-col md:flex-row items-center justify-center w-full h-full gap-4'>
@@ -52,7 +52,7 @@ function InformationBar() {
                         >We exclusively use premium and trusted beauty products to enhance your natural radiance and nurture your skin, hair, and nails.</p>
                     </div>
                 </div>
-            </AppContainer>
+            </Section>
         </>
 
     )

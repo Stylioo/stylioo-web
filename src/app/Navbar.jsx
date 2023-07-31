@@ -1,6 +1,6 @@
 'use client';
 
-import AppContainer from "@/components/AppContainer";
+import AppContainer from "@/components/Section";
 
 export default function NavbarWithDropdown() {
     return (

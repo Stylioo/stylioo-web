@@ -2,7 +2,8 @@ export type childrenPropType = {
     children: React.ReactNode
 }
 
-export type appContainerPropType = {
+export type sectionPropType = {
     children: React.ReactNode
     className?: string
+    style?: React.CSSProperties
 }
