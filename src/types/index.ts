@@ -7,3 +7,9 @@ export type sectionPropType = {
     className?: string
     style?: React.CSSProperties
 }
+
+export type containerPropType = {
+    children: React.ReactNode
+    className?: string
+    style?: React.CSSProperties
+}
