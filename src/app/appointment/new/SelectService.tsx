@@ -1,9 +1,11 @@
 import Container from "@/components/Container"
 import "@/styles/newAppointment.scss"
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
+import { newAppointmentStepPropType } from "@/types"
 import { serviceCategories, services } from "@/data/services"
 
-function SelectService() {
+function SelectService({ step, setStep }: newAppointmentStepPropType) {
     return (
         <>
             <div className="sticky top-14 bg-white z-[100]">
@@ -14,7 +16,8 @@ function SelectService() {
                 >
                     <div className="flex justify-between mb-6">
                         <h2 className="font-bold text-2xl">Select Services</h2>
-                        <h3 className="font-medium text-md text-gray-600 mb-2">STEP 1 OF 4</h3>
+                        <h3 className="font-medium text-md text-gray-600 mb-2">
+                            <span>STEP <span className="inline-block w-[12px] text-center">{step}</span> OF 4</span></h3>
                     </div>
                     <div className="flex gap-2 overflow-y-auto hidden-scroll-bar ">
                         {
@@ -82,14 +85,17 @@ function SelectService() {
                                     'LKR 60,000'
                                 }</p>
                             </div>
-                            <div className="flex justify-between items-end w-full lg:absolute lg:bottom-4 bg-white lg:left-0 lg:right-0 lg:border-t-2 lg:pt-4 px-6">
+                            <div className="flex justify-between items-end w-full lg:absolute lg:bottom-4 bg-white lg:left-0 lg:right-0 lg:border-t-2 lg:pt-4 lg:px-6">
                                 <div className="flex flex-col gap-1">
                                     <p className="text-sm ">3 Service</p>
                                     <p className="font-bold text-xl">LKR 180,000</p>
                                 </div>
-                                <div className="px-6 py-2 bg-red-700 text-white rounded">
+                                <button
+                                    className="px-6 py-2 bg-red-700 text-white rounded"
+                                    onClick={() => setStep(2)}
+                                >
                                     Next
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>

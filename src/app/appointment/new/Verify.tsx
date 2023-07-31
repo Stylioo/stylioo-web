@@ -1,6 +1,6 @@
-import React from 'react'
+import { newAppointmentStepPropType } from '@/types'
 
-function Verify() {
+function Verify({ setStep }: newAppointmentStepPropType) {
     return (
         <div>Verify</div>
     )

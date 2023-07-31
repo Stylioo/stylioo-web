@@ -13,3 +13,8 @@ export type containerPropType = {
     className?: string
     style?: React.CSSProperties
 }
+
+export type newAppointmentStepPropType = {
+    step: number,
+    setStep: (x: number) => void
+}

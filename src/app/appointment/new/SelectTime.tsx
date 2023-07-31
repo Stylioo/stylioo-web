@@ -1,6 +1,6 @@
-import React from 'react'
+import { newAppointmentStepPropType } from '@/types'
 
-function SelectTime() {
+function SelectTime({ setStep }: newAppointmentStepPropType) {
   return (
     <div>SelectTime</div>
   )
