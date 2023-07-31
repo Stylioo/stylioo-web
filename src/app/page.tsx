@@ -6,6 +6,7 @@ import { addTitle, addBody } from "@/redux/features/postSlice"
 import Hero from "./components/Hero"
 import Services from "./components/Services"
 import InformationBar from "./components/InformationBar";
+import MakeAppointmentBtn from "./components/MakeAppointmentBtn";
 
 export default function Home() {
   // const dispatch = useAppDispatch()
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <MakeAppointmentBtn />
       <InformationBar />
       <Services />
 

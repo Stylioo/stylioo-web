@@ -1,7 +1,7 @@
 import AppContainer from "@/components/AppContainer"
 import Image from "next/image"
 import Link from "next/link"
-import '@/styles/hero.scss'
+import '@/styles/homePage.scss'
 
 function Hero() {
     return (
