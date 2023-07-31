@@ -22,7 +22,7 @@ function Hero() {
                     </div>
                     <p className="text-md md:text-lg max-w-sm md:max-w-[700px] text-gray-300">Welcome to Stylioo, where beauty meets confidence, and style is embraced with every touch.</p>
                     <Link
-                        className=" bg-red-700 text-white px-6 py-[8px] rounded mt-4 hover:bg-red-600 transition duration-300 ease-in-out"
+                        className=" bg-red-700 text-white px-6 py-[8px] rounded mt-12 md:mt-10 hover:bg-red-600 transition duration-300 ease-in-out"
                         href="/services">Make An Appointment</Link>
                 </div>
                 <div className="scroll-indicator">
