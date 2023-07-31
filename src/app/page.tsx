@@ -3,20 +3,20 @@
 import { useAppDispatch, useAppSelector } from "@/redux/store"
 import { addTitle, addBody } from "@/redux/features/postSlice"
 
-import AppContainer from "@/components/AppContainer";
 import Hero from "./components/Hero"
 import Services from "./components/Services"
+import InformationBar from "./components/InformationBar";
 
 export default function Home() {
-  const dispatch = useAppDispatch()
-  const post = useAppSelector((state) => state.post)
+  // const dispatch = useAppDispatch()
+  // const post = useAppSelector((state) => state.post)
 
   return (
     <>
       <Hero />
-      <AppContainer>
-        <Services />
-      </AppContainer>
+      <InformationBar />
+      <Services />
+
     </>
 
     // <div>

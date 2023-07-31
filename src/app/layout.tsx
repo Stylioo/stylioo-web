@@ -22,7 +22,7 @@ export default function RootLayout({ children }: childrenPropType) {
   return (
     <html lang="en">
       <body
-        className={poppins.className}
+      // className={poppins.className}
       >
         <ReduxProvider>
           <Navbar />

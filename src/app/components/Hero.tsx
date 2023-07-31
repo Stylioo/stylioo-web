@@ -5,7 +5,7 @@ import '@/styles/hero.scss'
 
 function Hero() {
     return (
-        <div className="bg-cover bg-center  h-screen md:h-[45rem] lg:h-[40rem] relative select-none">
+        <div className="bg-cover bg-center  h-screen md:h-[40rem] lg:h-[32rem] relative select-none">
             <Image
                 width="1920"
                 height="1080"
