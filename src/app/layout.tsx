@@ -1,12 +1,12 @@
 import './globals.scss'
-import { DM_Mono } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import ReduxProvider from '@/redux/Provider'
 
 import { childrenPropType } from '@/types'
 
 import Navbar from './Navbar'
 
-export const dm_mono = DM_Mono({
+export const poppins = Poppins({
   weight: "300",
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: childrenPropType) {
   return (
     <html lang="en">
       <body
-        className={dm_mono.className}
+        className={poppins.className}
       >
         <ReduxProvider>
           <Navbar />

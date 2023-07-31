@@ -1,0 +1,59 @@
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .middle {
+        position: relative;
+        width: 30px;
+        height: 50px;
+        border-radius: 25px;
+        border: 2px solid #fff;
+        overflow: hidden;
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #fff;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: identifier 1s infinite;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #fff;
+            top: 7px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+    }
+}
+
+@keyframes identifier {
+    0% {
+        transform: translate(-50%, 10px);
+        opacity: 0;
+    }
+
+    80% {
+        transform: translate(-50%, 20px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, 35px);
+        opacity: 0;
+    }
+
+}

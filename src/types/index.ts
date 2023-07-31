@@ -1,3 +1,8 @@
-import { childrenPropType, appContainerPropType } from './uiElementPropType'
+export type childrenPropType = {
+    children: React.ReactNode
+}
 
-export type { childrenPropType, appContainerPropType }
+export type appContainerPropType = {
+    children: React.ReactNode
+    className?: string
+}
