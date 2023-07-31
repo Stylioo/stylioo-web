@@ -26,7 +26,11 @@ export default function RootLayout({ children }: childrenPropType) {
       >
         <ReduxProvider>
           <Navbar />
-          {children}
+          <div
+            className="mt-14"
+          >
+            {children}
+          </div>
         </ReduxProvider>
       </body>
     </html>

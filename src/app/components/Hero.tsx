@@ -14,7 +14,7 @@ function Hero() {
                 // src="https://stylioo.blob.core.windows.net/images/herobg2.jpg"
                 alt="" />
             <AppContainer className="h-full">
-                <div className="h-full flex flex-col justify-center items-center text-center gap-4">
+                <div className="h-full flex flex-col items-center text-center gap-4 mt-12">
                     <div className="text-6xl md:text-7xl text-white font-bold flex flex-col gap-4 md:flex-row mb-4 ">
                         <p>EMBRACE</p>
                         <p>THE</p>
@@ -23,7 +23,7 @@ function Hero() {
                     <p className="text-md md:text-lg max-w-sm md:max-w-[700px] text-gray-300">Welcome to Stylioo, where beauty meets confidence, and style is embraced with every touch.</p>
                     <Link
                         className=" bg-red-700 text-white px-6 py-[8px] rounded mt-12 md:mt-10 hover:bg-red-600 transition duration-300 ease-in-out"
-                        href="/services">Make An Appointment</Link>
+                        href="/appointment/new">Make An Appointment</Link>
                 </div>
                 <div className="scroll-indicator">
                     <div className="middle" ></div>
