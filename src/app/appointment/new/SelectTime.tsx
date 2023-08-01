@@ -1,6 +1,6 @@
 import { newAppointmentStepPropType } from '@/types'
 
-function SelectTime({ setStep }: newAppointmentStepPropType) {
+function SelectTime({ step }: newAppointmentStepPropType) {
   return (
     <div>SelectTime</div>
   )

@@ -70,7 +70,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                         services.map((service, index) => (
                             <div key={index} className="mb-4">
                                 <input type="checkbox" id={service.id} className="hidden service-check-box" />
-                                <label htmlFor={service.id} className="block w-full p-4 border-2 rounded-md service-label cursor-pointer hover:shadow-md transition duration-100 ease-in-out">
+                                <label htmlFor={service.id} className="block w-full p-4 border-2 rounded-md service-label cursor-pointer hover:shadow-md transition duration-100 ease-in-out select-none">
                                     <div className="flex justify-between items-center mb-4">
                                         <div className="flex flex-col">
                                             <p className="font-bold text-lg transition duration-100 ease-in-out service-name">{service.name}</p>
