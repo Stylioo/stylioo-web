@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['stylioo.blob.core.windows.net'],
+        domains: ['stylioo.blob.core.windows.net', 'randomuser.me'],
     },
 }
 

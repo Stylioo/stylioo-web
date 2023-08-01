@@ -32,3 +32,12 @@
         color: #e02424;
     }
 }
+
+.beautician-check-box:checked~.beautician-label {
+    background-color: #1f2937;
+    color: #fff;
+
+    p {
+        color: #fff;
+    }
+}

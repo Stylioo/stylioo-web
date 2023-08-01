@@ -33,7 +33,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                             <span>STEP <span className="inline-block w-[12px] text-center">{step}</span> OF 4</span></h3>
                     </div>
                     <div className="flex flex-col gap-4 lg:items-center lg:flex-row lg:gap-16">
-                        <div className=" flex lg:w-[700px] mb-2">
+                        <div className=" flex lg:min-w-[400px] mb-2">
                             <input type="text" className=" border rounded-l-lg px-4 grow border-r-0 search-box" placeholder="Search" />
                             <button className="border border-l-0 border-red-700 bg-red-700 text-white rounded-r-lg px-4 hover:bg-red-600 hover:border-red-600 transition duration-300 ease-in-out" ><AiOutlineSearch className="text-xl" /></button>
                         </div>
