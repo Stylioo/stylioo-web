@@ -91,6 +91,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                     }
 
                 </div>
+                <div className="lg:hidden min-h-[50px]"></div>
 
                 <div className="">
                     <div className="min-h-[100px] fixed bottom-0 left-0 right-0 lg:pt-6 bg-white lg:min-h-[450px] lg:sticky lg:top-[210px] lg:border-2 lg:rounded-lg lg:flex lg:flex-col">
