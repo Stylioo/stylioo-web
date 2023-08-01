@@ -33,6 +33,12 @@
     }
 }
 
+.beautician-label {
+    .image {
+        border: 2px solid #fff;
+    }
+}
+
 .beautician-check-box:checked~.beautician-label {
     background-color: #1f2937;
     color: #fff;
@@ -40,4 +46,9 @@
     p {
         color: #fff;
     }
+
+    .no-preference-image {
+        filter: invert(1);
+    }
+
 }

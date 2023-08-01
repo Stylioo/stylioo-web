@@ -36,11 +36,11 @@ function SelectBeautician({ step, handleBack }: newAppointmentStepPropType) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="">
                         <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" />
-                        <label htmlFor="any" className="flex gap-4 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
-                            <Image width="64" height="64" className="rounded-xl" src={DefaultBeauticians} alt=""></Image>
+                        <label htmlFor="any" className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
+                            <Image width="64" height="64" className="rounded-xl no-preference-image" src={DefaultBeauticians} alt=""></Image>
                             <div className="">
-                                <h4 className="text-xl font-bold">No Preference</h4>
-                                <p className='text-md text-gray-600'>Maximum availability</p>
+                                <h4 className="text-lg font-semibold">No Preference</h4>
+                                <p className='text-sm text-gray-600'>Maximum availability</p>
                             </div>
                         </label>
                     </div>
@@ -48,8 +48,8 @@ function SelectBeautician({ step, handleBack }: newAppointmentStepPropType) {
                         beauticians.map((beautician, index) => (
                             <div key={index}>
                                 <input type="radio" name="beautician" id={beautician.id} className="hidden beautician-check-box" />
-                                <label htmlFor={beautician.id} className="flex items-center gap-4 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
-                                    <Image width="64" height="64" className="rounded-full" src={beautician.image} alt=""></Image>
+                                <label htmlFor={beautician.id} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
+                                    <Image width="64" height="64" className="rounded-full image" src={beautician.image} alt=""></Image>
                                     <div className="">
                                         <h4 className="text-lg font-semibold">{beautician.name}</h4>
                                         <p className='text-sm text-gray-600'>Beautician</p>
