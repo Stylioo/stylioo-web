@@ -48,8 +48,8 @@ function SelectBeautician({ step, handleBack }: newAppointmentStepPropType) {
                         beauticians.map((beautician, index) => (
                             <div key={index}>
                                 <input type="radio" name="beautician" id={beautician.id} className="hidden beautician-check-box" />
-                                <label htmlFor={beautician.id} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
-                                    <Image width="64" height="64" className="rounded-full image" src={beautician.image} alt=""></Image>
+                                <label htmlFor={beautician.id} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
+                                    <Image width="64" height="64" className="rounded-full border-2 border-white" src={beautician.image} alt=""></Image>
                                     <div className="">
                                         <h4 className="text-lg font-semibold">{beautician.name}</h4>
                                         <p className='text-sm text-gray-600'>Beautician</p>
