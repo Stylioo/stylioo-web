@@ -5,7 +5,11 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { newAppointmentStepPropType } from "@/types"
 import { serviceCategories, services } from "@/data/services"
 
-function SelectService({ step, setStep }: newAppointmentStepPropType) {
+
+
+function SelectService({ step, handleNext }: newAppointmentStepPropType) {
+
+
     return (
         <>
             <div className="sticky top-14 bg-white z-[100]">
@@ -54,10 +58,10 @@ function SelectService({ step, setStep }: newAppointmentStepPropType) {
                         ))
                     }
                 </div>
-                <div className="fixed bottom-0 left-0 right-0 box-shadow lg:box-shadow-none lg:relative lg:block">
-                    <div className="py-6 min-h-[90px]  lg:border-2 lg:rounded-lg lg:sticky lg:top-[200px] lg:min-h-[450px] bg-white">
+                {/* <div className="fixed bottom-0 left-0 right-0 box-shadow lg:box-shadow-none lg:relative lg:block ">
+                    <div className="py-6 lg:border-2 lg:rounded-lg lg:sticky lg:top-[200px] lg:h-[450px] ">
 
-                        <div className="px-6">
+                        <div className="px-6 h-full overflow-scroll">
                             <div className=" hidden justify-between items-end mb-4 lg:flex border-b-2 pb-2">
                                 <div className="flex flex-col gap-1">
                                     <p className="font-semibold text-md">Treatment name</p>
@@ -85,21 +89,95 @@ function SelectService({ step, setStep }: newAppointmentStepPropType) {
                                     'LKR 60,000'
                                 }</p>
                             </div>
-                            <div className="flex justify-between items-end w-full lg:absolute lg:bottom-4 bg-white lg:left-0 lg:right-0 lg:border-t-2 lg:pt-4 lg:px-6">
+                            <div className=" hidden justify-between items-end mb-4 lg:flex border-b-2 pb-2">
                                 <div className="flex flex-col gap-1">
-                                    <p className="text-sm ">3 Service</p>
-                                    <p className="font-bold text-xl">LKR 180,000</p>
+                                    <p className="font-semibold text-md">Treatment name</p>
+                                    <p className="text-sm ">30 min</p>
                                 </div>
-                                <button
-                                    className="px-6 py-2 bg-red-700 text-white rounded"
-                                    onClick={() => setStep(2)}
-                                >
-                                    Next
-                                </button>
+                                <p className="font-semibold text-lg">{
+                                    'LKR 60,000'
+                                }</p>
                             </div>
+                            <div className=" hidden justify-between items-end mb-4 lg:flex border-b-2 pb-2">
+                                <div className="flex flex-col gap-1">
+                                    <p className="font-semibold text-md">Treatment name</p>
+                                    <p className="text-sm ">30 min</p>
+                                </div>
+                                <p className="font-semibold text-lg">{
+                                    'LKR 60,000'
+                                }</p>
+                            </div>
+                            <div className=" hidden justify-between items-end mb-4 lg:flex border-b-2 pb-2">
+                                <div className="flex flex-col gap-1">
+                                    <p className="font-semibold text-md">Treatment name</p>
+                                    <p className="text-sm ">30 min</p>
+                                </div>
+                                <p className="font-semibold text-lg">{
+                                    'LKR 60,000'
+                                }</p>
+                            </div>
+                            <div className=" hidden justify-between items-end mb-4 lg:flex border-b-2 pb-2">
+                                <div className="flex flex-col gap-1">
+                                    <p className="font-semibold text-md">Treatment name</p>
+                                    <p className="text-sm ">30 min</p>
+                                </div>
+                                <p className="font-semibold text-lg">{
+                                    'LKR 60,000'
+                                }</p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-end w-full px-6">
+                            <div className="flex flex-col gap-1">
+                                <p className="text-sm ">3 Service</p>
+                                <p className="font-bold text-xl">LKR 180,000</p>
+                            </div>
+                            <button
+                                className="px-6 py-2 bg-red-700 text-white rounded"
+                                onClick={handleNext}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div> */}
+
+                <div className="">
+                    <div className="min-h-[100px] fixed bottom-0 left-0 right-0 lg:pt-6 bg-white lg:min-h-[500px] lg:sticky lg:top-[200px] lg:border-2 lg:rounded-lg lg:flex lg:flex-col">
+
+                        <div className="grow lg:max-h-[400px] overflow-y-scroll hidden-scroll-bar hidden lg:block">
+                            {
+                                [1, 2, 3, 4, 5, 6, 7].map((item, index) => (
+                                    <div key={index} className="justify-between items-end mb-4 lg:flex mx-6 border-b-2 pb-2">
+                                        <div className="flex flex-col gap-1">
+                                            <p className="font-semibold text-md">Treatment name</p>
+                                            <p className="text-sm ">30 min</p>
+                                        </div>
+                                        <p className="font-semibold text-lg">{
+                                            'LKR 60,000'
+                                        }</p>
+                                    </div>
+                                ))
+                            }
+
+
+                        </div>
+
+                        <div className="flex justify-between items-end w-full px-6 py-4 box-shadow">
+                            <div className="flex flex-col gap-1">
+                                <p className="text-sm ">3 Service</p>
+                                <p className="font-bold text-xl">LKR 180,000</p>
+                            </div>
+                            <button
+                                className="px-6 py-2 bg-red-700 text-white rounded"
+                                onClick={handleNext}
+                            >
+                                Next
+                            </button>
                         </div>
                     </div>
                 </div>
+
             </Container>
         </>
     )

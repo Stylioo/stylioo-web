@@ -15,6 +15,7 @@ export type containerPropType = {
 }
 
 export type newAppointmentStepPropType = {
-    step: number,
-    setStep: (x: number) => void
+    step?: number,
+    handleNext?: () => void,
+    handleBack?: () => void,
 }

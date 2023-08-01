@@ -10,10 +10,20 @@ function NewAppointmentPage() {
 
     const [step, setStep] = useState(1)
 
-    if (step === 1) return <SelectService step={step} setStep={setStep} />
-    else if (step === 2) return <SelectBeautician step={step} setStep={setStep} />
-    else if (step === 3) return <SelectTime step={step} setStep={setStep} />
-    else if (step === 4) return <Verify step={step} setStep={setStep} />
+    const handleNext = () => {
+        window.scrollTo(0, 0)
+        setStep(step + 1)
+    }
+
+    const handleBack = () => {
+        window.scrollTo(0, 0)
+        setStep(step - 1)
+    }
+
+    if (step === 1) return <SelectService step={step} handleNext={handleNext} />
+    else if (step === 2) return <SelectBeautician step={step} handleNext={handleNext} handleBack={handleBack} />
+    else if (step === 3) return <SelectTime step={step} handleNext={handleNext} handleBack={handleBack} />
+    else if (step === 4) return <Verify step={step} handleBack={handleBack} />
 
 }
 

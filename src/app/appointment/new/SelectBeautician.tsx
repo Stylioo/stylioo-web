@@ -2,7 +2,7 @@ import Container from '@/components/Container'
 import { newAppointmentStepPropType } from '@/types'
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-function SelectBeautician({ step, setStep }: newAppointmentStepPropType) {
+function SelectBeautician({ step, handleBack }: newAppointmentStepPropType) {
     return (
         <div className="sticky top-14 bg-white z-[100]">
             <Container
@@ -15,12 +15,28 @@ function SelectBeautician({ step, setStep }: newAppointmentStepPropType) {
                     <h3 className="font-medium text-md text-gray-600 mb-2 flex gap-3 items-center">
                         <AiOutlineArrowLeft
                             className="cursor-pointer font-bold text-xl"
-                            onClick={() => setStep(step - 1)}
+                            onClick={handleBack}
                         />
                         <span>STEP <span className="inline-block w-[12px] text-center">{step}</span> OF 4</span></h3>
 
                 </div>
             </Container >
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <br></br>
             <br></br>
             <br></br>
