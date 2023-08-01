@@ -5,9 +5,30 @@
 
 .box-shadow {
     box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.1);
+}
 
-    // @media screen and (min-width: 1024px) {
-    //     box-shadow: none;
-
+.search-box {
+    // &:focus {
+    //     outline: none;
+    //     border: none;
     // }
+
+    // &:active {
+    //     outline: none;
+    //     border: none;
+    // }
+}
+
+
+.service-check-box:checked~.service-label {
+    border: 2px solid #e02424 !important;
+    background-color: #e024240b;
+
+    .service-name {
+        color: #e02424;
+    }
+
+    .service-price {
+        color: #e02424;
+    }
 }
