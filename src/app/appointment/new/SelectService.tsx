@@ -1,13 +1,22 @@
 import Container from "@/components/Container"
 import "@/styles/newAppointment.scss"
-import { AiOutlineArrowLeft, AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
-
 import { newAppointmentStepPropType } from "@/types"
 import { serviceCategories, services } from "@/data/services"
+import { useRef } from "react";
+import { AiOutlineArrowLeft, AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
 
 
 
 function SelectService({ step, handleNext }: newAppointmentStepPropType) {
+
+    const serviceRef = useRef<HTMLDivElement>(null)
+
+    const handleScrollLeft = () => {
+        serviceRef.current?.scrollBy({ left: -200, behavior: 'smooth' })
+    }
+    const handleScrollRight = () => {
+        serviceRef.current?.scrollBy({ left: 200, behavior: 'smooth' })
+    }
 
 
     return (
@@ -29,10 +38,13 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                             <button className="border border-l-0 border-red-700 bg-red-700 text-white rounded-r-lg px-4 hover:bg-red-600 hover:border-red-600 transition duration-300 ease-in-out" ><AiOutlineSearch className="text-xl" /></button>
                         </div>
                         <div className="flex gap-4  overflow-y-auto hidden-scroll-bar ">
-                            <button>
+                            <button
+                                className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
+                                onClick={handleScrollLeft}
+                            >
                                 <AiOutlineLeft />
                             </button>
-                            <div className="flex gap-2 overflow-y-auto hidden-scroll-bar ">
+                            <div ref={serviceRef} className="flex gap-2 overflow-y-auto hidden-scroll-bar ">
                                 {
                                     serviceCategories.map((category, index) => (
                                         <div key={index} className="flex min-w-fit cursor-grab">
@@ -42,7 +54,10 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                     ))
                                 }
                             </div>
-                            <button>
+                            <button
+                                className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
+                                onClick={handleScrollRight}
+                            >
                                 <AiOutlineRight />
                             </button>
                         </div>
