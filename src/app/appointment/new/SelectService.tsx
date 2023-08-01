@@ -93,7 +93,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                 </div>
 
                 <div className="">
-                    <div className="min-h-[100px] fixed bottom-0 left-0 right-0 lg:pt-6 bg-white lg:min-h-[500px] lg:sticky lg:top-[210px] lg:border-2 lg:rounded-lg lg:flex lg:flex-col">
+                    <div className="min-h-[100px] fixed bottom-0 left-0 right-0 lg:pt-6 bg-white lg:min-h-[450px] lg:sticky lg:top-[210px] lg:border-2 lg:rounded-lg lg:flex lg:flex-col">
 
                         <div className="grow lg:max-h-[400px] overflow-y-scroll hidden-scroll-bar hidden lg:block">
                             {

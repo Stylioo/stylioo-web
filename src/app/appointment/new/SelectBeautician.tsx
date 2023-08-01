@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { beauticians } from '@/data/services';
 import DefaultBeauticians from '@/assets/images/icons8-team-64.png';
 
-function SelectBeautician({ step, handleBack }: newAppointmentStepPropType) {
+function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPropType) {
     return (
         <>
             <div className="sticky top-14 bg-white z-[100]">
@@ -59,6 +59,20 @@ function SelectBeautician({ step, handleBack }: newAppointmentStepPropType) {
                         ))
                     }
                 </div >
+                <div className="min-h-[100px] fixed bottom-0 left-0 right-0 bg-white box-shadow ">
+                    <div className="max-w-7xl lg:mx-auto flex justify-between items-end w-full px-6 py-4 ">
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm ">3 Service</p>
+                            <p className="font-bold text-xl">LKR 180,000</p>
+                        </div>
+                        <button
+                            className="px-6 py-2 bg-red-700 hover:bg-red-600 transition duration-300 ease-in-out text-white rounded"
+                            onClick={handleNext}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
             </Container >
         </>
     )
