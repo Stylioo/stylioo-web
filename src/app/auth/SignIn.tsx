@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 function SignIn() {
     return (
-        <div className="md:h-screen grid lg:grid-cols-2 select-none">
+        <div className="h-screen grid lg:grid-cols-2 select-none">
 
             <div className="hidden lg:block w-full h-full overflow-hidden relative">
                 <Image className='brightness-50 absolute -z-10 infinite-zoom h-full w-full object-cover' src="https://stylioo.blob.core.windows.net/images/herobg2.jpg" width="2060" height="3090" alt="banner" />
@@ -22,11 +22,11 @@ function SignIn() {
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2">
                         <label className="text-gray-700 text-[0.95rem]" htmlFor="email">Email Address</label>
-                        <input className="h-10 w-[320px] md:w-[400px] rounded-lg border-gray-400" type="email" id="email" />
+                        <input className="h-10 w-[350px] md:w-[400px] rounded-lg border-gray-400" type="email" id="email" />
                     </div>
                     <div className="flex flex-col gap-2">
                         <label className="text-gray-700 font-[] text-[0.95rem]" htmlFor="password">Password</label>
-                        <input className="h-10 w-[320px] md:w-[400px] rounded-lg border-gray-400" type="password" id="password" />
+                        <input className="h-10 w-[350px] md:w-[400px] rounded-lg border-gray-400" type="password" id="password" />
                     </div>
                     <button className="py-3 my-4 bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg ">Sign In</button>
                 </div>
