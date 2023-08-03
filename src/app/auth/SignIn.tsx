@@ -22,11 +22,11 @@ function SignIn() {
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2">
                         <label className="text-gray-700 text-[0.95rem]" htmlFor="email">Email Address</label>
-                        <input className="h-[36px] w-[300px] md:w-[400px] rounded-lg border-gray-400" type="email" id="email" />
+                        <input className="h-[36px] w-[320px] md:w-[400px] rounded-lg border-gray-400" type="email" id="email" />
                     </div>
                     <div className="flex flex-col gap-2">
                         <label className="text-gray-700 font-[] text-[0.95rem]" htmlFor="password">Password</label>
-                        <input className="h-[36px] w-[300px] md:w-[400px] rounded-lg border-gray-400" type="password" id="password" />
+                        <input className="h-[36px] w-[320px] md:w-[400px] rounded-lg border-gray-400" type="password" id="password" />
                     </div>
                     <button className="py-3 my-4 bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg ">Sign In</button>
                 </div>
