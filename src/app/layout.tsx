@@ -5,6 +5,7 @@ import ReduxProvider from '@/redux/Provider'
 import { childrenPropType } from '@/types'
 
 import Navbar from './Navbar'
+import SignIn from './auth/SignIn'
 
 const poppins = Poppins({
   weight: "300",
@@ -25,12 +26,13 @@ export default function RootLayout({ children }: childrenPropType) {
       // className={poppins.className}
       >
         <ReduxProvider>
-          <Navbar />
-          <div
+          <SignIn />
+          {/* <Navbar /> */}
+          {/* <div
             className="mt-14"
           >
             {children}
-          </div>
+          </div> */}
         </ReduxProvider>
       </body>
     </html>
