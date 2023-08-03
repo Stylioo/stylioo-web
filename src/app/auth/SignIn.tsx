@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 function SignIn() {
     return (
-        <div className="h-screen grid lg:grid-cols-2 select-none">
+        <div className="md:h-screen grid lg:grid-cols-2 select-none">
 
             <div className="hidden lg:block w-full h-full overflow-hidden relative">
                 <Image className='brightness-50 absolute -z-10 infinite-zoom h-full w-full object-cover' src="https://stylioo.blob.core.windows.net/images/herobg2.jpg" width="2060" height="3090" alt="banner" />
