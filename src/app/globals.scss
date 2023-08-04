@@ -37,6 +37,15 @@ body {
   display: none;
 }
 
+.window-height {
+  height: calc(100dvh - 112px);
+}
+
+.active {
+  color: #fff;
+  background-color: #f00;
+}
+
 // :root {
 //   --foreground-rgb: 0, 0, 0;
 //   --background-start-rgb: 214, 219, 220;

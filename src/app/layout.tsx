@@ -27,14 +27,14 @@ export default function RootLayout({ children }: childrenPropType) {
       // className={poppins.className}
       >
         <ReduxProvider>
-          <SignIn />
+          {/* <SignIn /> */}
           {/* <SignUp /> */}
-          {/* <Navbar /> */}
-          {/* <div
+          <Navbar />
+          <div
             className="mt-14"
           >
             {children}
-          </div> */}
+          </div>
         </ReduxProvider>
       </body>
     </html>
