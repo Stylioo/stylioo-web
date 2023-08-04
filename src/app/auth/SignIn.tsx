@@ -11,20 +11,20 @@ function SignIn() {
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     return (
-        <div className="h-screen grid lg:grid-cols-2 select-none">
+        <div className="h-screen flex justify-center items-center select-none">
 
-            <div className="hidden lg:block w-full h-full overflow-hidden relative">
+            {/* <div className="hidden lg:block w-full h-full overflow-hidden relative">
                 <Image className='brightness-50 absolute -z-10 infinite-zoom h-full w-full object-cover' src="https://stylioo.blob.core.windows.net/images/herobg2.jpg" width="2060" height="3090" alt="banner" />
                 <div className="absoulte top-0 left-0 w-full h-full z-[100] flex flex-col justify-center items-center ">
                     <h1 className="text-[6rem] text-white font-bold drop-shadow-lg">Stylioo</h1>
                     <p className="text-white text-xl drop-shadow-lg">Embrace the style</p>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="my-auto mx-auto lg:ml-16 ">
+            <div className="bg-white p-6 ">
                 <div className="mb-12">
-                    <h1 className="text-center lg:text-left text-2xl font-bold mb-2">Welcome Back !</h1>
-                    <p className="text-center lg:text-left text-sm text-gray-600">Sign in to Sylioo, Embrace the style</p>
+                    <h1 className="text-center text-2xl font-bold mb-2">Welcome Back !</h1>
+                    <p className="text-center text-sm text-gray-600">Sign in to Sylioo, Embrace the style</p>
                 </div>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2 w-[350px] md:w-[400px]">
@@ -72,7 +72,7 @@ function SignIn() {
                 </div>
 
                 <div className="mt-8">
-                    <p className="text-center lg:text-left text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/signup">Sign Up</Link></p>
+                    <p className="text-center text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/signup">Sign Up</Link></p>
                 </div>
             </div>
 

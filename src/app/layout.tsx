@@ -27,8 +27,8 @@ export default function RootLayout({ children }: childrenPropType) {
       // className={poppins.className}
       >
         <ReduxProvider>
-          {/* <SignIn /> */}
-          <SignUp />
+          <SignIn />
+          {/* <SignUp /> */}
           {/* <Navbar /> */}
           {/* <div
             className="mt-14"
