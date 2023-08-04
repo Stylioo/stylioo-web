@@ -23,20 +23,20 @@ function SignIn() {
 
             <div className="my-auto mx-auto lg:ml-16 ">
                 <div className="mb-12">
-                    <h1 className="text-center lg:text-left text-3xl font-bold mb-2">Welcome Back !</h1>
+                    <h1 className="text-center lg:text-left text-2xl font-bold mb-2">Welcome Back !</h1>
                     <p className="text-center lg:text-left text-sm text-gray-600">Sign in to Sylioo, Embrace the style</p>
                 </div>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2 w-[350px] md:w-[400px]">
-                        <label className="text-gray-600 font-[500] text-[0.9rem]" htmlFor="email">Email Address</label>
-                        <input className="h-10 w-full rounded-lg border-gray-400 text-sm placeholder:text-gray-400 focus:ring-0 active:right-0" type="email" id="email" placeholder='name@sample.com' />
+                        <label className="text-gray-600 font-[500] text-[0.8rem]" htmlFor="email">Email Address</label>
+                        <input className="h-[40px] w-full rounded-lg border-gray-300 text-sm placeholder:text-gray-400 focus:ring-0 active:right-0" type="email" id="email" placeholder='name@sample.com' />
                     </div>
                     <div className="flex flex-col gap-2 w-[350px] md:w-[400px]">
-                        <label className="text-gray-600 font-[500] text-[0.9rem]" htmlFor="password">Password</label>
+                        <label className="text-gray-600 font-[500] text-[0.8rem]" htmlFor="password">Password</label>
                         <div className="flex">
-                            <input className="h-10 border-gray-400 grow border-r-0 rounded-l-lg focus:ring-0 active:right-0" type={isShowPassword ? "text" : "password"} id="password" />
+                            <input className="h-[40px] border-gray-300 grow border-r-0 rounded-l-lg focus:ring-0 active:right-0" type={isShowPassword ? "text" : "password"} id="password" />
                             <button
-                                className='h-10 w-10  flex justify-center items-center border border-l-0 border-gray-400 rounded-r-lg'
+                                className='h-[40px] w-10  flex justify-center items-center border border-l-0 border-gray-300 rounded-r-lg'
                                 onClick={() => setIsShowPassword(!isShowPassword)}
                             >
                                 {
@@ -46,7 +46,7 @@ function SignIn() {
                             </button>
                         </div>
                     </div>
-                    <button className="py-3 my-4 bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg ">Sign In</button>
+                    <button className="py-3 my-3 bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg ">Sign In</button>
                 </div>
                 <div className="flex justify-between my-2">
                     <div className="flex items-center">
@@ -60,7 +60,7 @@ function SignIn() {
                 </div>
                 <div className="flex flex-col gap-3">
                     <button className="px-4 py-2 rounded-lg border-2 shadow flex items-center justify-center gap-4 hover:shadow-lg transition duration-300 ease-in-out">
-                        <Image width="50" height="50" className="w-8 h-8" src="https://stylioo.blob.core.windows.net/images/icons8-google-480.svg" alt="google" />
+                        <Image width="50" height="50" className="w-[25px] h-[25px]" src="https://stylioo.blob.core.windows.net/images/icons8-google-480.svg" alt="google" />
                         <p className='text-sm font-semibold text-gray-600'>Sign In with Google
                         </p>
                     </button>
@@ -71,7 +71,7 @@ function SignIn() {
                     </button> */}
                 </div>
 
-                <div className="mt-12">
+                <div className="mt-8">
                     <p className="text-center lg:text-left text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/signup">Sign Up</Link></p>
                 </div>
             </div>
