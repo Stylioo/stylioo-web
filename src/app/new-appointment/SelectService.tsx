@@ -39,7 +39,8 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                         </div>
                         <div className="flex gap-4  overflow-y-auto hidden-scroll-bar ">
                             <button
-                                className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
+                                // className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
+                                className="rounded-full flex justify-center items-center p-3 hover:bg-gray-100 transition duration-300 ease-in-out"
                                 onClick={handleScrollLeft}
                             >
                                 <AiOutlineLeft />
@@ -55,7 +56,8 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                 }
                             </div>
                             <button
-                                className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
+                                // className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
+                                className="rounded-full flex justify-center items-center p-3 hover:bg-gray-100 transition duration-300 ease-in-out"
                                 onClick={handleScrollRight}
                             >
                                 <AiOutlineRight />
