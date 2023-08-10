@@ -3,7 +3,7 @@ import '@/styles/auth.scss'
 import Image from 'next/image'
 import { useState } from 'react'
 import SignUpForm from './SignUpForm'
-import CompleteProfile from './CompleteProfile'
+import CompleteProfile from '../complete/page'
 
 function SignUp() {
 

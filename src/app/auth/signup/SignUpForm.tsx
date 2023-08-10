@@ -77,7 +77,7 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
             </div>
 
             <div className="mt-8">
-                <p className="text-center text-sm font-semibold">Already have an account? <Link className='text-red-500' href="/signin">Sign In</Link></p>
+                <p className="text-center text-sm font-semibold">Already have an account? <Link className='text-red-500' href="/auth/signin">Sign In</Link></p>
             </div>
         </div>
     )

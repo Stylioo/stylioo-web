@@ -1,12 +1,12 @@
+'use client'
+
 import './globals.scss'
 import { Poppins } from 'next/font/google'
 import ReduxProvider from '@/redux/Provider'
+import Navbar from "@/components/Navbar"
 
 import { childrenPropType } from '@/types'
-
-import Navbar from './Navbar'
-import SignIn from './auth/SignIn'
-import SignUp from './auth/SignUp'
+import { usePathname } from 'next/navigation'
 
 const poppins = Poppins({
   weight: "300",
@@ -21,14 +21,27 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: childrenPropType) {
+
+  const path = usePathname()
+
+  if (path === '/auth/signin' || path === '/auth/signup')
+    return (
+      <html lang="en">
+        <body
+        // className={poppins.className}
+        >
+          {children}
+        </body>
+      </html>
+    )
+
   return (
     <html lang="en">
       <body
       // className={poppins.className}
       >
         <ReduxProvider>
-          {/* <SignIn /> */}
-          {/* <SignUp /> */}
+
           <Navbar />
           <div
             className="mt-14"
@@ -40,3 +53,4 @@ export default function RootLayout({ children }: childrenPropType) {
     </html>
   )
 }
+

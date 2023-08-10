@@ -6,9 +6,20 @@ import Link from 'next/link'
 
 import { BsEyeSlash, BsEye } from 'react-icons/bs'
 
+import { useRouter } from 'next/navigation'
+
+
+
 function SignIn() {
 
+
+    const router = useRouter()
+
     const [isShowPassword, setIsShowPassword] = useState(false)
+
+    const handleSignIn = () => {
+        router.push('/')
+    }
 
     return (
         <div className="h-screen flex justify-center items-center select-none">
@@ -46,15 +57,19 @@ function SignIn() {
                             </button>
                         </div>
                     </div>
-                    <button className="py-3 my-3 bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg ">Sign In</button>
                 </div>
-                <div className="flex justify-between my-2">
+                <div className="flex justify-between mt-4 mb-2">
                     <div className="flex items-center">
                         <input type="checkbox" id="remember" className="rounded checked:bg-red-500  focus:ring-0 active:right-0" />
                         <label className="text-gray-600 font-[500] text-[0.9rem] ml-2" htmlFor="remember">Remember Me</label>
                     </div>
                     <p className="text-sm font-semibold text-red-500">Forgot Password ?</p>
                 </div>
+
+                <button className="py-3 my-3 w-full bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg "
+                    onClick={handleSignIn}
+                >Sign In</button>
+
                 <div className="divider">
                     <p>or</p>
                 </div>
@@ -72,7 +87,7 @@ function SignIn() {
                 </div>
 
                 <div className="mt-8">
-                    <p className="text-center text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/signup">Sign Up</Link></p>
+                    <p className="text-center text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/auth/signup">Sign Up</Link></p>
                 </div>
             </div>
 
