@@ -20,20 +20,32 @@ export const metadata = {
   description: 'Stylioo - Online Salon Reservation System',
 }
 
-export default function RootLayout({ children }: childrenPropType) {
-
+const MainLayout = ({ children }: childrenPropType) => {
   const path = usePathname()
 
-  if (path === '/auth/signin' || path === '/auth/signup')
+  if (path === '/auth/signin' || path === '/auth/signup') {
     return (
-      <html lang="en">
-        <body
-        // className={poppins.className}
-        >
-          {children}
-        </body>
-      </html>
+      <>
+        {children}
+      </>
     )
+  }
+
+  return (
+    <div
+      className="flex flex-col min-h-screen"
+    >
+      <Navbar />
+      <div
+        className="mt-14"
+      >
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export default function RootLayout({ children }: childrenPropType) {
 
   return (
     <html lang="en">
@@ -41,13 +53,9 @@ export default function RootLayout({ children }: childrenPropType) {
       // className={poppins.className}
       >
         <ReduxProvider>
-
-          <Navbar />
-          <div
-            className="mt-14"
-          >
+          <MainLayout>
             {children}
-          </div>
+          </MainLayout>
         </ReduxProvider>
       </body>
     </html>
