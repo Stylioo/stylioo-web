@@ -20,33 +20,33 @@ export const metadata = {
   description: 'Stylioo - Online Salon Reservation System',
 }
 
-const MainLayout = ({ children }: childrenPropType) => {
-  const path = usePathname()
 
-  if (path === '/auth/signin' || path === '/auth/signup') {
-    return (
-      <>
-        {children}
-      </>
-    )
-  }
-
-  return (
-    <div
-      className="flex flex-col min-h-screen"
-    >
-      <Navbar />
-      <div
-        className="mt-14"
-      >
-        {children}
-      </div>
-    </div>
-  )
-}
 
 export default function RootLayout({ children }: childrenPropType) {
+  const MainLayout = ({ children }: childrenPropType) => {
+    const path = usePathname()
 
+    if (path === '/auth/signin' || path === '/auth/signup') {
+      return (
+        <>
+          {children}
+        </>
+      )
+    }
+
+    return (
+      <div
+        className="flex flex-col min-h-screen"
+      >
+        <Navbar />
+        <div
+          className="mt-14"
+        >
+          {children}
+        </div>
+      </div>
+    )
+  }
   return (
     <html lang="en">
       <body
