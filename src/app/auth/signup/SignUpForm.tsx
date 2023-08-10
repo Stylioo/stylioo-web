@@ -18,7 +18,7 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
 
         <div className=" bg-white p-6">
             <div className="mb-8">
-                <h1 className="text-center text-2xl font-bold mb-2">Sign Up with us !</h1>
+                <h1 className="text-center text-2xl font-bold mb-2">Sign Up!</h1>
                 <p className="text-center text-sm text-gray-600">Sign up to Sylioo, Embrace the style</p>
             </div>
             <div className="flex flex-col gap-3">

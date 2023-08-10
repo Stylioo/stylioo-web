@@ -15,38 +15,38 @@ const poppins = Poppins({
 })
 
 
-export const metadata = {
-  title: 'Stylioo',
-  description: 'Stylioo - Online Salon Reservation System',
-}
+// export const metadata = {
+//   title: 'Stylioo',
+//   description: 'Stylioo - Online Salon Reservation System',
+// }
 
+const MainLayout = ({ children }: childrenPropType) => {
+  const path = usePathname()
 
-
-export default function RootLayout({ children }: childrenPropType) {
-  const MainLayout = ({ children }: childrenPropType) => {
-    const path = usePathname()
-
-    if (path === '/auth/signin' || path === '/auth/signup') {
-      return (
-        <>
-          {children}
-        </>
-      )
-    }
-
+  if (path === '/auth/signin' || path === '/auth/signup') {
     return (
-      <div
-        className="flex flex-col min-h-screen"
-      >
-        <Navbar />
-        <div
-          className="mt-14"
-        >
-          {children}
-        </div>
-      </div>
+      <>
+        {children}
+      </>
     )
   }
+
+  return (
+    <div
+      className="flex flex-col min-h-screen"
+    >
+      <Navbar />
+      <div
+      // className="mt-14"
+      >
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export default function RootLayout({ children }: childrenPropType) {
+
   return (
     <html lang="en">
       <body
