@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '@/styles/auth.scss'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,19 +7,80 @@ import Link from 'next/link'
 import { BsEyeSlash, BsEye } from 'react-icons/bs'
 
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 
-
+import { useAppDispatch, useAppSelector } from '@/redux/store'
+import { setUser } from '@/redux/features/authSlice'
 
 function SignIn() {
 
 
     const router = useRouter()
+    const loggedIn = useAppSelector(state => state.auth.uid !== '')
+
+    useEffect(() => {
+        if (loggedIn) {
+            router.push('/')
+        }
+    }, [loggedIn, router])
+
+    const dispatch = useAppDispatch()
 
     const [isShowPassword, setIsShowPassword] = useState(false)
 
-    const handleSignIn = () => {
-        router.push('/')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+
+    const handleEmailChange = (e: any) => {
+        const emailRegex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+        const value = e.target.value
+        setEmail(value)
     }
+
+    const handlePasswordChange = (e: any) => {
+        const value = e.target.value
+        setPassword(value)
+    }
+
+    const handleSignIn = async () => {
+        if (email === '' || password === '') {
+            alert('Please fill all the fields')
+            return
+        }
+        try {
+            const response = await axios.post('http://localhost:5400/auth/login', {
+                email: email,
+                password: password,
+                type: 'CUSTOMER'
+            })
+
+            if (response.status === 200) {
+                const data = response.data
+                console.log(data);
+                if (!data.success) {
+                    alert(data.message)
+                    return
+                }
+
+                dispatch(setUser({
+                    uid: data.data.uid,
+                    email: data.data.email,
+                    first_name: data.data.first_name,
+                    last_name: data.data.last_name,
+                }))
+
+                router.push('/')
+            }
+
+        } catch (error) {
+            console.log(error);
+
+        }
+
+    }
+
+
 
     return (
         <div className="h-screen flex justify-center items-center select-none">
@@ -40,12 +101,18 @@ function SignIn() {
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2 w-[350px] md:w-[400px]">
                         <label className="text-gray-600 font-[500] text-[0.8rem]" htmlFor="email">Email Address</label>
-                        <input className="h-[40px] w-full rounded-lg border-gray-300 text-sm placeholder:text-gray-400 focus:ring-0 active:right-0" type="email" id="email" placeholder='name@sample.com' />
+                        <input
+                            className="h-[40px] w-full rounded-lg border-gray-300 text-sm placeholder:text-gray-400 focus:ring-0 active:right-0" type="email" id="email" placeholder='name@sample.com'
+                            onChange={handleEmailChange} value={email}
+                        />
                     </div>
                     <div className="flex flex-col gap-2 w-[350px] md:w-[400px]">
                         <label className="text-gray-600 font-[500] text-[0.8rem]" htmlFor="password">Password</label>
                         <div className="flex">
-                            <input className="h-[40px] border-gray-300 grow border-r-0 rounded-l-lg focus:ring-0 active:right-0" type={isShowPassword ? "text" : "password"} id="password" />
+                            <input
+                                className="h-[40px] border-gray-300 grow border-r-0 rounded-l-lg focus:ring-0 active:right-0" type={isShowPassword ? "text" : "password"} id="password"
+                                onChange={handlePasswordChange} value={password}
+                            />
                             <button
                                 className='h-[40px] w-10  flex justify-center items-center border border-l-0 border-gray-300 rounded-r-lg'
                                 onClick={() => setIsShowPassword(!isShowPassword)}
@@ -70,7 +137,7 @@ function SignIn() {
                     onClick={handleSignIn}
                 >Sign In</button>
 
-                <div className="divider">
+                {/* <div className="divider">
                     <p>or</p>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -79,12 +146,12 @@ function SignIn() {
                         <p className='text-sm font-semibold text-gray-600'>Sign In with Google
                         </p>
                     </button>
-                    {/* <button className="px-4 py-2 rounded-lg border-2 shadow flex items-center justify-center gap-4">
+                    <button className="px-4 py-2 rounded-lg border-2 shadow flex items-center justify-center gap-4">
                         <Image width="50" height="50" className="w-8 h-8" src="https://stylioo.blob.core.windows.net/images/icons8-facebook-480.svg" alt="google" />
                         <p className='text-left w-[200px]'>Sign In with Facebook
                         </p>
-                    </button> */}
-                </div>
+                    </button>
+                </div> */}
 
                 <div className="mt-8">
                     <p className="text-center text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/auth/signup">Sign Up</Link></p>

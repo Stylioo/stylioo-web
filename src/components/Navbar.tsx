@@ -2,8 +2,35 @@
 
 import Container from "@/components/Container";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from 'axios'
+import { useAppSelector, useAppDispatch } from "@/redux/store"
+import { removeUser } from "@/redux/features/authSlice"
+
 
 export default function NavbarWithDropdown() {
+
+    const router = useRouter()
+    const loggedIn = useAppSelector(state => state.auth.uid !== '')
+    const dispatch = useAppDispatch()
+
+    const signoutUser = async () => {
+        try {
+
+            const response = await axios.get("http://localhost:5400/auth/logout")
+            console.log(response.data);
+            if (response.status === 200) {
+                console.log('signoutUser');
+                dispatch(removeUser())
+                router.push('/')
+
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
         <div className="bg-gray-800 h-14 fixed top-0 left-0 right-0 z-[1000]">
             <Container className="h-full">
@@ -26,12 +53,20 @@ export default function NavbarWithDropdown() {
                         </div>
                     </div>
                     <div className="flex gap-4 items-center">
-                        <div className="flex items-center gap-2">
-                            <Link href="/auth/signin" className="text-white text-sm">Sign In</Link>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Link href="/auth/signup" className="text-white text-sm">Sign Up</Link>
-                        </div>
+                        {
+                            loggedIn ? <div className="flex items-center gap-2">
+                                <button onClick={signoutUser} className="text-white text-sm">Sign Out</button>
+                            </div> :
+                                <>
+                                    <div className="flex items-center gap-2">
+                                        <Link href='/auth/signin' className="text-white text-sm">Sign In</Link>
+
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Link href="/auth/signup" className="text-white text-sm">Sign Up</Link>
+                                    </div>
+                                </>
+                        }
                     </div>
                 </div>
             </Container>

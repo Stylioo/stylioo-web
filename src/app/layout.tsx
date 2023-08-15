@@ -37,7 +37,7 @@ const MainLayout = ({ children }: childrenPropType) => {
     >
       <Navbar />
       <div
-      // className="mt-14"
+      className="mt-14"
       >
         {children}
       </div>

@@ -7,7 +7,15 @@ import { useRef } from "react";
 import listOfDays from '@/utils/listOfDays'
 import listOfTimeWithIntervals from '@/utils/listOfTimeWithIntervals'
 
+import { useAppSelector, useAppDispatch } from "@/redux/store"
+import { setDate, setStartTime } from '@/redux/features/cartSlice';
+import formatNumber from '@/utils/formatNumber';
+
 function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType) {
+
+  const dispatch = useAppDispatch()
+  let cart = useAppSelector(state => state.cart)
+
   const serviceRef = useRef<HTMLDivElement>(null)
 
   const handleScrollLeft = () => {
@@ -15,6 +23,14 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
   }
   const handleScrollRight = () => {
     serviceRef.current?.scrollBy({ left: 200, behavior: 'smooth' })
+  }
+
+  const handleDaySelect = (e: any) => {
+    dispatch(setDate(e.target.id))
+  }
+
+  const handleTimeSelect = (e: any) => {
+    dispatch(setStartTime(e.target.value))
   }
 
   return (
@@ -50,7 +66,7 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
                   const [date, month] = listOfDay.title.split(' ')
                   return (
                     <div key={index} className="flex min-w-fit cursor-grab">
-                      <input name="date" type="radio" id={listOfDay.key} className="hidden t-check-box" />
+                      <input name="date" type="radio" id={listOfDay.key} className="hidden t-check-box" onChange={handleDaySelect} />
                       <label htmlFor={listOfDay.key} className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center gap-1 items-center  min-w-[100px] rounded-2xl text-sm t-label">
                         <p className='font-bold text-2xl'>{date}</p>
                         <p className='text-sm'>{month}</p>
@@ -90,7 +106,7 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
                 const [time, ampm] = TimeWithInterval.split(' ')
                 return (
                   <div key={index} className="flex flex-col gap-2">
-                    <input name="time" type="radio" id={`time-${time}`} className="hidden t-check-box" />
+                    <input name="time" type="radio" id={`time-${time}`} value={`${time} ${ampm}`} className="hidden t-check-box" onChange={handleTimeSelect} />
                     <label htmlFor={`time-${time}`} className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm t-label">
                       <p className='font-bold text-md'>{time}</p>
                       <p className='text-sm'>{ampm}</p>
@@ -106,8 +122,8 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
       <div className="min-h-[100px] fixed bottom-0 left-0 right-0 bg-white box-shadow ">
         <div className="max-w-7xl lg:mx-auto flex justify-between items-end w-full px-6 py-4 ">
           <div className="flex flex-col gap-1">
-            <p className="text-sm ">3 Service</p>
-            <p className="font-bold text-xl">LKR 180,000</p>
+            <p className="text-sm ">{cart.services.length > 0 ? cart.services.length : "No"} Service</p>
+            <p className="font-bold text-xl">{cart.totalPrice === 0 ? "-" : `LKR ${formatNumber(cart.totalPrice)}`}</p>
           </div>
           <button
             className="px-6 py-2 bg-red-700 hover:bg-red-600 transition duration-300 ease-in-out text-white rounded"

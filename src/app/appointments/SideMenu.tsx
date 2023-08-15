@@ -26,11 +26,11 @@ const menuItems = [
         slug: '/profile'
 
     },
-    {
-        name: 'Help & Support',
-        icon: <BiHelpCircle />,
-        slug: '/help'
-    },
+    // {
+    //     name: 'Help & Support',
+    //     icon: <BiHelpCircle />,
+    //     slug: '/help'
+    // },
 
 ]
 

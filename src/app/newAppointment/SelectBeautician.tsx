@@ -2,10 +2,64 @@ import Container from '@/components/Container'
 import { newAppointmentStepPropType } from '@/types'
 import { AiOutlineArrowLeft, AiOutlineSearch } from "react-icons/ai";
 import Image from 'next/image';
-import { beauticians } from '@/data/services';
+// import { beauticians } from '@/data/services';
 import DefaultBeauticians from '@/assets/images/icons8-team-64.png';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import { useAppSelector, useAppDispatch } from "@/redux/store"
+import { addBeautician } from '@/redux/features/cartSlice'
+import formatNumber from '@/utils/formatNumber';
 
 function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPropType) {
+
+    const dispatch = useAppDispatch()
+    let cart = useAppSelector(state => state.cart)
+
+    const [beauticians, setBeauticians] = useState<any>([])
+
+    const handleRadioBtnCheck = (e: any) => {
+        if (e.target.id === 'any') {
+            dispatch(addBeautician({
+                uid: 'any',
+                first_name: 'No Preference',
+                last_name: '',
+                email: '',
+            }))
+        } else {
+            const beautician = beauticians.find((beautician: any) => beautician.uid === e.target.id)
+            dispatch(addBeautician({
+                uid: beautician.uid,
+                first_name: beautician.first_name,
+                last_name: beautician.last_name,
+                email: beautician.email,
+            }))
+        }
+
+    }
+
+    const getAllBeauticians = async () => {
+        try {
+            const response = await axios.get('http://localhost:5400/employee/beautician?full=false')
+            if (response.data.success) {
+                console.log(response.data.data);
+
+                setBeauticians(response.data.data)
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getAllBeauticians()
+        console.log(beauticians);
+
+    }, [])
+
+
+
     return (
         <>
             <div className="sticky top-14 bg-white z-[100]">
@@ -37,7 +91,7 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
             <Container>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="">
-                        <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" />
+                        <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
                         <label htmlFor="any" className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
                             <Image width="64" height="64" className="rounded-xl no-preference-image" src={DefaultBeauticians} alt=""></Image>
                             <div className="">
@@ -48,13 +102,13 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
                     </div>
 
                     {
-                        beauticians.map((beautician, index) => (
+                        beauticians.map((beautician: any, index: number) => (
                             <div key={index}>
-                                <input type="radio" name="beautician" id={beautician.id} className="hidden beautician-check-box" />
-                                <label htmlFor={beautician.id} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
-                                    <Image width="64" height="64" className="rounded-full border-2 border-white" src={beautician.image} alt=""></Image>
+                                <input type="radio" name="beautician" id={beautician.uid} className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
+                                <label htmlFor={beautician.uid} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
+                                    <Image width="64" height="64" className="rounded-full border-2 border-white" src={beautician.image ?? DefaultBeauticians} alt=""></Image>
                                     <div className="">
-                                        <h4 className="text-lg font-semibold">{beautician.name}</h4>
+                                        <h4 className="text-lg font-semibold">{beautician.first_name} {beautician.last_name}</h4>
                                         <p className='text-sm text-gray-600'>Beautician</p>
                                     </div>
                                 </label>
@@ -67,8 +121,8 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
             <div className="min-h-[100px] fixed bottom-0 left-0 right-0 bg-white box-shadow ">
                 <div className="max-w-7xl lg:mx-auto flex justify-between items-end w-full px-6 py-4 ">
                     <div className="flex flex-col gap-1">
-                        <p className="text-sm ">3 Service</p>
-                        <p className="font-bold text-xl">LKR 180,000</p>
+                        <p className="text-sm ">{cart.services.length > 0 ? cart.services.length : "No"} Service</p>
+                        <p className="font-bold text-xl">{cart.totalPrice === 0 ? "-" : `LKR ${formatNumber(cart.totalPrice)}`}</p>
                     </div>
                     <button
                         className="px-6 py-2 bg-red-700 hover:bg-red-600 transition duration-300 ease-in-out text-white rounded"

@@ -132,7 +132,7 @@ export const beauticians = [
         services: ['Facials', 'Skin Analysis', 'Acne Treatments'],
     },
     {
-        id: 'beautician8',
+        id: 'beautician18',
         name: 'Ava Mitchell',
         image: 'https://randomuser.me/api/portraits/women/7.jpg',
         type: 'Manicurist',
@@ -141,7 +141,7 @@ export const beauticians = [
         services: ['Gel Manicures', 'Nail Art', 'Nail Extensions'],
     },
     {
-        id: 'beautician9',
+        id: 'beautician19',
         name: 'William Turner',
         image: 'https://randomuser.me/api/portraits/men/8.jpg',
         type: 'Hairstylist',
@@ -150,7 +150,7 @@ export const beauticians = [
         services: ['Haircuts', 'Hair Styling', 'Hair Treatments'],
     },
     {
-        id: 'beautician10',
+        id: 'beautician100',
         name: 'Isabella Cooper',
         image: 'https://randomuser.me/api/portraits/women/9.jpg',
         type: 'Esthetician',

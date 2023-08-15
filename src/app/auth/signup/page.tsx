@@ -1,13 +1,27 @@
 'use client'
 import '@/styles/auth.scss'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SignUpForm from './SignUpForm'
 import CompleteProfile from '../complete/page'
+import { useRouter } from 'next/navigation'
+import { useAppSelector } from '@/redux/store'
 
 function SignUp() {
 
     const [step, setStep] = useState(1)
+
+    const router = useRouter()
+
+
+    const loggedIn = useAppSelector(state => state.auth.uid !== '')
+
+    useEffect(() => {
+        if (loggedIn) {
+            router.push('/')
+        }
+    }, [loggedIn, router])
+
 
     const increamentStep = () => {
         if (step !== 3) setStep(step + 1)
