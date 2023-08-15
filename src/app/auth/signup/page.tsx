@@ -3,7 +3,7 @@ import '@/styles/auth.scss'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import SignUpForm from './SignUpForm'
-import CompleteProfile from '../complete/page'
+// import CompleteProfile from '../complete/page'
 import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/redux/store'
 
@@ -44,8 +44,8 @@ function SignUp() {
 
             {/* form */}
             {
-                step === 1 ? <SignUpForm increamentStep={increamentStep} /> :
-                    step === 2 ? <CompleteProfile increamentStep={increamentStep} /> : <h1>step 3</h1>
+                <SignUpForm increamentStep={increamentStep} />
+                // step === 2 ? <CompleteProfile increamentStep={increamentStep} /> : <h1>step 3</h1>
             }
 
         </div>
