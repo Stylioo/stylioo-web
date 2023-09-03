@@ -4,9 +4,9 @@ import "@/styles/newAppointment.scss"
 import { newAppointmentStepPropType } from "@/types"
 import { serviceCategories } from "@/data/services"
 import { useRef, useState, useEffect } from "react";
-import { AiOutlineArrowLeft, AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
-import axios from "axios"
+import { AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
 
+import useAxios from "@/hooks/useAxios"
 import { useAppSelector, useAppDispatch } from "@/redux/store"
 import { addToCart, removeFromCart } from "@/redux/features/cartSlice"
 import formatNumber from "@/utils/formatNumber"
@@ -31,7 +31,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
 
     const serviceRef = useRef<HTMLDivElement>(null)
 
-    const [services, setServices] = useState<serviceType[]>([])
+    // const [services, setServices] = useState<serviceType[]>([])
     const [selectedServices, setSelectedServices] = useState<serviceType[]>([])
     const [total, setTotal] = useState<number>(0.0)
 
@@ -41,10 +41,8 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
     const handleScrollRight = () => {
         serviceRef.current?.scrollBy({ left: 200, behavior: 'smooth' })
     }
-
-
     const handleCheckbox = (e: any) => {
-        let service = services.find(service => service.id === e.target.id)
+        let service = services?.find((service: any) => service.id === e.target.id)
         if (service) {
             if (e.target.checked) {
                 // setSelectedServices([...selectedServices, service])
@@ -57,38 +55,11 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
 
     }
 
-    const getAllServices = async () => {
-        try {
-            const response = await axios.get('http://localhost:5400/service')
-
-            if (response.status === 200) {
-                if (response.data.success) {
-                    console.log(response.data.data);
-                    setServices(response.data.data)
-                } else {
-                    setServices([])
-                }
-            } else {
-                setServices([])
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const [services, error, loading, axiosFetch] = useAxios()
 
     useEffect(() => {
-        getAllServices()
+        axiosFetch({ method: 'get', url: '/service' })
     }, [])
-
-    // useEffect(() => {
-    //     console.log(selectedServices);
-
-    //     let t = selectedServices.reduce((t, service) => t + service.price, 0)
-    //     console.log(t);
-
-    //     setTotal(t)
-    // }, [selectedServices])
 
 
     return (
@@ -141,27 +112,28 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
             <Container className="grid lg:grid-cols-3 gap-8" >
                 <div className="lg:col-span-2">
                     {
-                        services.map((service, index) => (
-                            <div key={index} className="mb-4">
-                                <input type="checkbox" id={service.id} className="hidden service-check-box" onChange={handleCheckbox} />
-                                <label htmlFor={service.id} className="block w-full p-4 border-2 rounded-md service-label cursor-pointer hover:shadow-md transition duration-100 ease-in-out select-none">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <div className="flex flex-col">
-                                            <p className="font-bold text-lg transition duration-100 ease-in-out service-name">{service.name}</p>
-                                            <p className="text-sm">{service.duration} Hr</p>
+                        loading ? <p>Loading...</p> : error ? <p>{error}</p> :
+                            services?.map((service: any, index: number) => (
+                                <div key={index} className="mb-4">
+                                    <input type="checkbox" id={service.id} className="hidden service-check-box" onChange={handleCheckbox} />
+                                    <label htmlFor={service.id} className="block w-full p-4 border-2 rounded-md service-label cursor-pointer hover:shadow-md transition duration-100 ease-in-out select-none">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <div className="flex flex-col">
+                                                <p className="font-bold text-lg transition duration-100 ease-in-out service-name">{service.name}</p>
+                                                <p className="text-sm">{service.duration} Hr</p>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <p className="font-semibold text-lg transition duration-100 ease-in-out service-name">{
+                                                    service.price === 0 ? "Free" : `LKR ${formatNumber(service.price)}`
+                                                }</p>
+                                            </div>
                                         </div>
                                         <div className="flex gap-2">
-                                            <p className="font-semibold text-lg transition duration-100 ease-in-out service-name">{
-                                                service.price === 0 ? "Free" : `LKR ${formatNumber(service.price)}`
-                                            }</p>
+                                            <p className="text-sm">{service.description}</p>
                                         </div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <p className="text-sm">{service.description}</p>
-                                    </div>
-                                </label>
-                            </div>
-                        ))
+                                    </label>
+                                </div>
+                            ))
                     }
 
                 </div>
