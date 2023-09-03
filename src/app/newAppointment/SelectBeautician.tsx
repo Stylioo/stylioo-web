@@ -10,13 +10,14 @@ import axios from 'axios';
 import { useAppSelector, useAppDispatch } from "@/redux/store"
 import { addBeautician } from '@/redux/features/cartSlice'
 import formatNumber from '@/utils/formatNumber';
+import useAxios from '@/hooks/useAxios';
+import Loading from '@/components/Loading';
 
 function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPropType) {
 
     const dispatch = useAppDispatch()
     let cart = useAppSelector(state => state.cart)
 
-    const [beauticians, setBeauticians] = useState<any>([])
 
     const handleRadioBtnCheck = (e: any) => {
         if (e.target.id === 'any') {
@@ -38,24 +39,10 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
 
     }
 
-    const getAllBeauticians = async () => {
-        try {
-            const response = await axios.get('http://localhost:5400/employee/beautician?full=false')
-            if (response.data.success) {
-                console.log(response.data.data);
-
-                setBeauticians(response.data.data)
-            }
-
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    const [beauticians, error, loading, axiosFetch] = useAxios()
 
     useEffect(() => {
-        getAllBeauticians()
-        console.log(beauticians);
-
+        axiosFetch({ method: 'get', url: '/employee' })
     }, [])
 
 
@@ -89,33 +76,39 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
             </div >
 
             <Container>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="">
-                        <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
-                        <label htmlFor="any" className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
-                            <Image width="64" height="64" className="rounded-xl no-preference-image" src={DefaultBeauticians} alt=""></Image>
+                {loading ? <Loading /> :
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div className="">
-                                <h4 className="text-lg font-semibold">No Preference</h4>
-                                <p className='text-sm text-gray-600'>Maximum availability</p>
-                            </div>
-                        </label>
-                    </div>
-
-                    {
-                        beauticians.map((beautician: any, index: number) => (
-                            <div key={index}>
-                                <input type="radio" name="beautician" id={beautician.uid} className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
-                                <label htmlFor={beautician.uid} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
-                                    <Image width="64" height="64" className="rounded-full border-2 border-white" src={beautician.image ?? DefaultBeauticians} alt=""></Image>
+                                <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
+                                <label htmlFor="any" className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
+                                    <Image width="64" height="64" className="rounded-xl no-preference-image" src={DefaultBeauticians} alt=""></Image>
                                     <div className="">
-                                        <h4 className="text-lg font-semibold">{beautician.first_name} {beautician.last_name}</h4>
-                                        <p className='text-sm text-gray-600'>Beautician</p>
+                                        <h4 className="text-lg font-semibold">No Preference</h4>
+                                        <p className='text-sm text-gray-600'>Maximum availability</p>
                                     </div>
                                 </label>
                             </div>
-                        ))
-                    }
-                </div >
+
+                            {
+                                beauticians?.map((beautician: any, index: number) => (
+                                    <div key={index}>
+                                        <input type="radio" name="beautician" id={beautician.uid} className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
+                                        <label htmlFor={beautician.uid} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
+                                            <Image width="64" height="64" className="rounded-full border-2 border-white" src={beautician.image ?? DefaultBeauticians} alt=""></Image>
+                                            <div className="">
+                                                <h4 className="text-lg font-semibold">{beautician.first_name} {beautician.last_name}</h4>
+                                                <p className='text-sm text-gray-600'>Beautician</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                ))
+                            }
+
+                        </div >
+                    </>
+
+                }
             </Container >
             <div className="min-h-[120px]"></div>
             <div className="min-h-[100px] fixed bottom-0 left-0 right-0 bg-white box-shadow ">

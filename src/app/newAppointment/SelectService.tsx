@@ -10,6 +10,7 @@ import useAxios from "@/hooks/useAxios"
 import { useAppSelector, useAppDispatch } from "@/redux/store"
 import { addToCart, removeFromCart } from "@/redux/features/cartSlice"
 import formatNumber from "@/utils/formatNumber"
+import Loading from "@/components/Loading"
 
 type serviceType = {
     id: string,
@@ -112,10 +113,12 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
             <Container className="grid lg:grid-cols-3 gap-8" >
                 <div className="lg:col-span-2">
                     {
-                        loading ? <p>Loading...</p> : error ? <p>{error}</p> :
+                        loading ? <Loading /> : error ? <p>{error}</p> :
                             services?.map((service: any, index: number) => (
                                 <div key={index} className="mb-4">
-                                    <input type="checkbox" id={service.id} className="hidden service-check-box" onChange={handleCheckbox} />
+                                    <input type="checkbox" id={service.id} className="hidden service-check-box" onChange={handleCheckbox}
+                                        checked={cart.services.find((item: serviceType) => item.id === service.id) ? true : false}
+                                    />
                                     <label htmlFor={service.id} className="block w-full p-4 border-2 rounded-md service-label cursor-pointer hover:shadow-md transition duration-100 ease-in-out select-none">
                                         <div className="flex justify-between items-center mb-4">
                                             <div className="flex flex-col">
