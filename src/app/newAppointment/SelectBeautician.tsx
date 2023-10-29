@@ -20,17 +20,19 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
 
 
     const handleRadioBtnCheck = (e: any) => {
+        console.log('c');
+
         if (e.target.id === 'any') {
             dispatch(addBeautician({
-                uid: 'any',
+                id: 'any',
                 first_name: 'No Preference',
                 last_name: '',
                 email: '',
             }))
         } else {
-            const beautician = beauticians.find((beautician: any) => beautician.uid === e.target.id)
+            const beautician = beauticians.find((beautician: any) => beautician.id === e.target.id)
             dispatch(addBeautician({
-                uid: beautician.uid,
+                id: beautician.id,
                 first_name: beautician.first_name,
                 last_name: beautician.last_name,
                 email: beautician.email,
@@ -93,9 +95,9 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
                             {
                                 beauticians?.map((beautician: any, index: number) => (
                                     <div key={index}>
-                                        <input type="radio" name="beautician" id={beautician.uid} className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
-                                        <label htmlFor={beautician.uid} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
-                                            <Image width="64" height="64" className="rounded-full border-2 border-white" src={beautician.image ?? DefaultBeauticians} alt=""></Image>
+                                        <input type="radio" name="beautician" id={beautician.id} className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
+                                        <label htmlFor={beautician.id} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
+                                            <Image width="64" height="64" className="rounded-full border-2 border-white" src={`https://stylioo.blob.core.windows.net/images/${beautician.image}` ?? DefaultBeauticians} alt=""></Image>
                                             <div className="">
                                                 <h4 className="text-lg font-semibold">{beautician.first_name} {beautician.last_name}</h4>
                                                 <p className='text-sm text-gray-600'>Beautician</p>
