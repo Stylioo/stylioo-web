@@ -7,16 +7,16 @@ import Link from 'next/link'
 import { BsEyeSlash, BsEye } from 'react-icons/bs'
 
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 
 import { useAppDispatch, useAppSelector } from '@/redux/store'
 import { setUser } from '@/redux/features/authSlice'
+import axios from '@/axios'
 
 function SignIn() {
 
 
     const router = useRouter()
-    const loggedIn = useAppSelector(state => state.auth.uid !== '')
+    const loggedIn = useAppSelector(state => state.auth.id !== '')
 
     useEffect(() => {
         if (loggedIn) {
@@ -49,7 +49,7 @@ function SignIn() {
             return
         }
         try {
-            const response = await axios.post('http://localhost:5400/auth/login', {
+            const response = await axios.post('/auth/signin', {
                 email: email,
                 password: password,
                 type: 'CUSTOMER'
@@ -64,7 +64,7 @@ function SignIn() {
                 }
 
                 dispatch(setUser({
-                    uid: data.data.uid,
+                    id: data.data.uid,
                     email: data.data.email,
                     first_name: data.data.first_name,
                     last_name: data.data.last_name,

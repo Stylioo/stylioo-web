@@ -44,7 +44,7 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
     const [beauticians, error, loading, axiosFetch] = useAxios()
 
     useEffect(() => {
-        axiosFetch({ method: 'get', url: '/employee' })
+        axiosFetch({ method: 'get', url: '/employee/role/beautician' })
     }, [])
 
 
@@ -80,7 +80,7 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
             <Container>
                 {loading ? <Loading /> :
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:mt-16">
                             <div className="">
                                 <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
                                 <label htmlFor="any" className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">

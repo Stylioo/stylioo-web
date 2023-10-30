@@ -14,7 +14,7 @@ function SignUp() {
     const router = useRouter()
 
 
-    const loggedIn = useAppSelector(state => state.auth.uid !== '')
+    const loggedIn = useAppSelector(state => state.auth.id !== '')
 
     useEffect(() => {
         if (loggedIn) {

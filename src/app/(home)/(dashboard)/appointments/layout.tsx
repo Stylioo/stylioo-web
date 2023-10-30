@@ -3,7 +3,7 @@
 import Container from '@/components/Container'
 import { AppointmentLayoutPropType } from '@/types/layout'
 
-import Navbar from "@/components/Navbar"
+import Navbar from "@/components/Navbar/Navbar"
 import SideMenu from './SideMenu'
 import { usePathname } from 'next/navigation'
 

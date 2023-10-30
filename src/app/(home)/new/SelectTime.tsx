@@ -99,7 +99,7 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
       <Container>
 
 
-        <div className="rounded-lg min-h-[175px] lg:min-h-[250px] lg:mt-4  border-gray-300 p-4">
+        <div className="rounded-lg min-h-[175px] lg:min-h-[250px]  border-gray-300 lg:mt-16">
           <div className="time-grid">
             {
               listOfTimeWithIntervals.map((TimeWithInterval, index) => {

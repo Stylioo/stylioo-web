@@ -111,7 +111,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                 </Container>
             </div>
             <Container className="grid lg:grid-cols-3 gap-8" >
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2 lg:mt-16">
                     {
                         loading ? <Loading /> : error ? <p>{error}</p> :
                             services?.map((service: any, index: number) => (
@@ -145,7 +145,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                 <div className="">
                     <div className="min-h-[100px] fixed bottom-0 left-0 right-0 lg:pt-6 bg-white lg:min-h-[450px] lg:sticky lg:top-[210px] lg:border-2 lg:rounded-lg lg:flex lg:flex-col">
 
-                        <div className="grow lg:h-[350px] overflow-y-scroll hidden-scroll-bar hidden lg:block">
+                        <div className="grow lg:h-[350px] overflow-y-scroll hidden-scroll-bar hidden lg:block ">
                             {
                                 cart.services.length > 0 ?
                                     cart.services.map((item: serviceType, index) => (
