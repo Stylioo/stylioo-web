@@ -1,3 +1,4 @@
+'use client'
 import Container from '@/components/Container'
 import { newAppointmentStepPropType } from '@/types'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -6,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/redux/store'
 import formatNumber from '@/utils/formatNumber'
 import axios from '@/axios'
+import { useState } from 'react'
+import BtnLoading from '@/components/BtnLoading'
 
 type serviceType = {
     id: string,
@@ -26,11 +29,12 @@ function Verify({ step, handleBack }: newAppointmentStepPropType) {
 
     const router = useRouter()
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
     const handleCheckout = async (e: any) => {
         e.preventDefault()
-        console.log("clicked");
-
         try {
+            setIsLoading(true)
             const response = await axios.post('/appointment', {
                 customer_id: currrentUser.id,
                 date: cart.date,
@@ -56,6 +60,8 @@ function Verify({ step, handleBack }: newAppointmentStepPropType) {
         } catch (err) {
             console.log(err)
             router.push('/new')
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -128,9 +134,9 @@ function Verify({ step, handleBack }: newAppointmentStepPropType) {
                             </div>
                             <div className="absolute bottom-0 left-0 right-0 px-4 py-4 box-shadow">
                                 <button
-                                    className="px-6 py-2 w-full text-white rounded-lg hover:bg-red-600 bg-red-700"
+                                    className="px-6 py-2 w-full text-white rounded-lg hover:bg-blue-600 bg-blue-700"
                                     onClick={handleCheckout}
-                                >Checkout</button>
+                                >{isLoading ? <BtnLoading /> : "Checkout"}</button>
                             </div>
                         </div>
                     </div>

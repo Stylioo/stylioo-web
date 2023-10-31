@@ -12,6 +12,7 @@ import { setDate, setStartTime } from '@/redux/features/cartSlice';
 import formatNumber from '@/utils/formatNumber';
 import axios from '@/axios';
 import moment from 'moment';
+import Loading from '@/components/Loading';
 
 const workingHours = 8
 function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType) {
@@ -43,9 +44,11 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
 
 
   const [datesAndTimes, setDatesAndTimes] = useState<any>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const getAppointmentDateAndTimeByBeautician = async () => {
     try {
+      setIsLoading(true)
       const response = await axios.get(`/appointment/dateAndTime/${cart.beautician.id}`)
       if (response.data.success) {
         setDatesAndTimes(response.data.data)
@@ -61,7 +64,8 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
       setDateMatrix(generateDateMatrix([]))
       setTimeMetrix(generateTimeMetrix(moment().add(1, 'days').format('YYYY-MM-DD')))
       console.log(err);
-
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -169,7 +173,7 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
 
               <div className="flex min-w-fit cursor-grab">
                 <input name="date" type="radio" id="custom" className="hidden t-check-box" />
-                <label htmlFor="custom" className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm border-red-500 t-label">
+                <label htmlFor="custom" className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm border-blue-500 t-label">
                   <p className='font-semibold'>Custom Date</p>
                   <p className='text-[10px] text-gray-500'>Select a custom date</p>
                 </label>
@@ -191,26 +195,29 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
 
 
         <div className="rounded-lg min-h-[175px] lg:min-h-[250px]  border-gray-300 lg:mt-16">
-          <div className="time-grid">
-            {
+          {
+            isLoading ? <Loading /> :
+              <div className="time-grid">
+                {
 
-              timeMatrix.map((TimeWithInterval: any, index: number) => {
-                const [time, ampm] = TimeWithInterval.time.split(' ')
-                return (
-                  <div key={index} className="flex flex-col gap-2">
-                    <input name="time" type="radio" id={`time-${time}`} value={`${time} ${ampm}`} className="hidden t-check-box" onChange={handleTimeSelect}
-                      disabled={TimeWithInterval.isDisabled}
-                      checked={cart.startTime === `${time} ${ampm}`}
-                    />
-                    <label htmlFor={`time-${time}`} className={`cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm t-label ${TimeWithInterval.isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-grab hover:border-red-500'}`}>
-                      <p className='font-bold text-md'>{time}</p>
-                      <p className='text-sm'>{ampm}</p>
-                    </label>
-                  </div>
-                )
-              })
-            }
-          </div>
+                  timeMatrix.map((TimeWithInterval: any, index: number) => {
+                    const [time, ampm] = TimeWithInterval.time.split(' ')
+                    return (
+                      <div key={index} className="flex flex-col gap-2">
+                        <input name="time" type="radio" id={`time-${time}`} value={`${time} ${ampm}`} className="hidden t-check-box" onChange={handleTimeSelect}
+                          disabled={TimeWithInterval.isDisabled}
+                          checked={cart.startTime === `${time} ${ampm}`}
+                        />
+                        <label htmlFor={`time-${time}`} className={`cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm t-label ${TimeWithInterval.isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-grab hover:border-blue-500'}`}>
+                          <p className='font-bold text-md'>{time}</p>
+                          <p className='text-sm'>{ampm}</p>
+                        </label>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+          }
         </div>
       </Container >
       <div className="min-h-[120px]"></div>
@@ -221,7 +228,7 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
             <p className="font-bold text-xl">{cart.totalPrice === 0 ? "-" : `LKR ${formatNumber(cart.totalPrice)}`}</p>
           </div>
           <button
-            className="px-6 py-2 bg-red-700 hover:bg-red-600 transition duration-300 ease-in-out text-white rounded"
+            className="px-6 py-2 bg-blue-700 hover:bg-blue-600 transition duration-300 ease-in-out text-white rounded"
             onClick={handleNext}
           >
             Next

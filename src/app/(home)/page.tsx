@@ -5,12 +5,15 @@ import MakeAppointmentBtn from "./components/MakeAppointmentBtn";
 import Brands from "./components/Brands";
 import Banner from "./components/Banner";
 import Experts from "./components/Experts";
+import ReduxProvider from "@/redux/Provider";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <MakeAppointmentBtn />
+      <ReduxProvider>
+        <MakeAppointmentBtn />
+      </ReduxProvider>
       <InformationBar />
       <Services />
       <Experts />

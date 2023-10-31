@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
 import { setUser } from '@/redux/features/authSlice'
 import axios from '@/axios'
+import BtnLoading from '@/components/BtnLoading'
 
 function SignIn() {
 
@@ -43,12 +44,15 @@ function SignIn() {
         setPassword(value)
     }
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleSignIn = async () => {
         if (email === '' || password === '') {
             alert('Please fill all the fields')
             return
         }
         try {
+            setIsLoading(true)
             const response = await axios.post('/auth/customer/signin', {
                 email: email,
                 password: password,
@@ -70,6 +74,7 @@ function SignIn() {
             console.log(error);
 
         }
+        setIsLoading(false)
 
     }
 
@@ -120,15 +125,15 @@ function SignIn() {
                 </div>
                 <div className="flex justify-between mt-4 mb-2">
                     <div className="flex items-center">
-                        <input type="checkbox" id="remember" className="rounded checked:bg-red-500  focus:ring-0 active:right-0" />
+                        <input type="checkbox" id="remember" className="rounded checked:bg-blue-500  focus:ring-0 active:right-0" />
                         <label className="text-gray-600 font-[500] text-[0.9rem] ml-2" htmlFor="remember">Remember Me</label>
                     </div>
-                    <p className="text-sm font-semibold text-red-500">Forgot Password ?</p>
+                    <p className="text-sm font-semibold text-blue-500">Forgot Password ?</p>
                 </div>
 
-                <button className="py-3 my-3 w-full bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg "
+                <button className="py-3 my-3 w-full bg-blue-700 hover:bg-blue-600 hover:shadow transition duration-300 ease-in-out text-white font-semibold rounded-lg "
                     onClick={handleSignIn}
-                >Sign In</button>
+                >{isLoading ? <BtnLoading /> : "Sign In"}</button>
 
                 {/* <div className="divider">
                     <p>or</p>
@@ -147,7 +152,7 @@ function SignIn() {
                 </div> */}
 
                 <div className="mt-8">
-                    <p className="text-center text-sm font-semibold">New Customer ? <Link className='text-red-500' href="/auth/signup">Sign Up</Link></p>
+                    <p className="text-center text-sm font-semibold">New Customer ? <Link className='text-blue-500' href="/auth/signup">Sign Up</Link></p>
                 </div>
             </div>
 

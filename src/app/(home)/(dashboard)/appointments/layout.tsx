@@ -10,23 +10,8 @@ import ReduxProvider from '@/redux/Provider'
 
 function AppointmentLayout({ children }: AppointmentLayoutPropType) {
 
-    const path = usePathname()
-
-    // if (path === '/appointment/new')
-    //     return (
-    //         <Container
-    //             className='my-[2rem]'
-    //         >
-    //             <div className="col-span-3">{children}</div>
-
-    //         </Container>
-    //     )
-
     return (
-
-
         <>
-
             <ReduxProvider>
                 <Container
                     className='my-[2rem] flex flex-col lg:flex-row gap-8'

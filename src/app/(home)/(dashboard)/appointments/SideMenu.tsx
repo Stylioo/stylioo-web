@@ -16,9 +16,14 @@ const menuItems = [
         slug: '/appointments/upcomming'
     },
     {
-        name: 'Previous Appointments',
+        name: 'Completed Appointments',
         icon: <AiOutlineClockCircle />,
-        slug: '/appointments/previous'
+        slug: '/appointments/completed'
+    },
+    {
+        name: 'Canceled Appointments',
+        icon: <AiOutlineClockCircle />,
+        slug: '/appointments/canceled'
     },
     {
         name: 'My Profile',

@@ -157,7 +157,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                     <div className="flex flex-col gap-4 lg:items-center lg:flex-row lg:gap-16">
                         <div className=" flex lg:min-w-[400px] mb-2">
                             <input type="text" className=" border rounded-lg px-4 grow search-box" onChange={searchServices} placeholder="Search" />
-                            {/* <button className="border border-l-0 border-red-700 bg-red-700 text-white rounded-r-lg px-4 hover:bg-red-600 hover:border-red-600 transition duration-300 ease-in-out" ><AiOutlineSearch className="text-xl" /></button> */}
+                            {/* <button className="border border-l-0 border-blue-700 bg-blue-700 text-white rounded-r-lg px-4 hover:bg-blue-600 hover:border-blue-600 transition duration-300 ease-in-out" ><AiOutlineSearch className="text-xl" /></button> */}
                         </div>
                         <div className="flex gap-4  overflow-y-auto hidden-scroll-bar ">
                             <button
@@ -261,7 +261,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                 <p className="font-bold text-xl">{cart.totalPrice === 0 ? "-" : `LKR ${formatNumber(cart.totalPrice)}`}</p>
                             </div>
                             <button
-                                className="px-6 py-2 bg-red-700 hover:bg-red-600 transition duration-300 ease-in-out text-white rounded"
+                                className="px-6 py-2 bg-blue-700 hover:bg-blue-600 transition duration-300 ease-in-out text-white rounded"
                                 onClick={handleNext}
                                 disabled={cart.services.length <= 0 || cart.totalPrice <= 0}
                             >

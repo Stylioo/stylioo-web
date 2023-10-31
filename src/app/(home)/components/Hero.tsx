@@ -1,19 +1,20 @@
-'use client'
 import Section from "@/components/Section"
 import Image from "next/image"
 import Link from "next/link"
 import '@/styles/homePage.scss'
-import useAuth from "@/hooks/useAuth"
+import ReduxProvider from "@/redux/Provider"
+import MakeAppointmentHero from "./MakeAppointmentHero"
 
 function Hero() {
 
     return (
-        <div className="bg-cover bg-center  h-screen md:h-[40rem] lg:h-[32rem] relative select-none">
+        <div className="bg-cover bg-center  h-screen md:h-[40rem] lg:h-[35rem] relative select-none">
             <Image
                 width="1920"
                 height="1080"
                 className=" absolute top-0 left-0 -z-10 w-full h-screen  md:h-full  object-cover brightness-[0.7]"
-                src="https://stylioo.blob.core.windows.net/images/herobg1.png"
+                // src="https://source.unsplash.com/1920x1080/?salon"
+                src="https://stylioo.blob.core.windows.net/images/b1.jpg"
                 // src="https://stylioo.blob.core.windows.net/images/herobg2.jpg"
                 alt="" />
             <Section className="h-full">
@@ -24,9 +25,9 @@ function Hero() {
                         <p>STYLE</p>
                     </div>
                     <p className="text-md md:text-lg max-w-sm md:max-w-[700px] text-gray-300">Welcome to Stylioo, where beauty meets confidence, and style is embraced with every touch.</p>
-                    <Link
-                        className=" bg-red-700 text-white px-6 py-[8px] rounded mt-12 md:mt-10 hover:bg-red-600 transition duration-300 ease-in-out"
-                        href="/newAppointment">Make An Appointment</Link>
+                    <ReduxProvider>
+                        <MakeAppointmentHero />
+                    </ReduxProvider>
                 </div>
                 <div className="scroll-indicator">
                     <div className="middle" ></div>

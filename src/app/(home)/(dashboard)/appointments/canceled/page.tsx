@@ -1,46 +1,32 @@
 'use client'
-import axios from "@/axios"
+import axios from "@/axios";
 import Container from "@/components/Container"
-import Loading from "@/components/Loading"
-import NoDataFound from "@/components/NoDataFound"
-import formatNumber from "@/utils/formatNumber"
-import moment from "moment"
+import Loading from "@/components/Loading";
+import NoDataFound from "@/components/NoDataFound";
+import formatNumber from "@/utils/formatNumber";
+import moment from "moment";
 import Image from "next/image"
-import { useEffect, useState } from "react"
-
-type UpcommingType = {
-    id: string,
-    beautician: string,
-    beautician_id: string,
-    customer: string,
-    customer_id: string,
-    date: string,
-    description: string,
-    totalPrice: number,
-    duration: string,
-    services: string,
-    status: string,
-    startTime: string,
-
-}
+import { useEffect, useState } from "react";
 
 function AppointmentPage() {
 
-    const [Upcomming, setUpcomming] = useState<any[]>([])
+    const [previous, setPrevious] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const getAllAppointments = async () => {
         try {
             setIsLoading(true)
-            const response = await axios.get('/appointment?type=upcomming')
+            const response = await axios.get('/appointment?type=canceled')
             if (response.data.success) {
-                setUpcomming(response.data.data)
+                setPrevious(response.data.data)
                 console.log(response.data.data);
+
             }
 
         } catch (err) {
             console.log(err);
-        } finally {
+        }
+        finally {
             setIsLoading(false)
         }
     }
@@ -53,12 +39,11 @@ function AppointmentPage() {
         <>
             <Container className="">
                 <div className="bg-white pt-8 pb-4 border-b sticky top-14">
-                    <h1 className="text-xl font-semibold mb-2">Upcomming Appointments</h1>
+                    <h1 className="text-xl font-semibold mb-2">Canceled Appointments</h1>
                 </div>
                 <div className="mt-6">
                     {
-                        isLoading ? <Loading /> : Upcomming.length <= 0 ? <NoDataFound /> : Upcomming.map((appointment, index) => {
-                            console.log(appointment);
+                        isLoading ? <Loading /> : previous.length <= 0 ? <NoDataFound /> : previous.map((appointment, index) => {
                             return (
                                 <div key={index} className="flex flex-col p-4 border-2 rounded-md service-label cursor-pointer hover:shadow-md transition duration-100 ease-in-out select-none mb-4">
                                     <div className="flex justify-between">
@@ -93,18 +78,19 @@ function AppointmentPage() {
                                             </div>
                                         </div>
 
-                                        <button
+                                        {/* <button
                                             className="border-gray-500 text-gray-600 border px-3 py-1 rounded-lg text-sm mt-2 mr-2"
-                                        >cancel</button>
+                                        >cancel</button> */}
                                     </div>
 
                                 </div>
                             )
                         })
                     }
+
+
+
                 </div>
-
-
 
             </Container>
         </>

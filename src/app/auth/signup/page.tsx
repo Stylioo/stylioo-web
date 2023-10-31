@@ -12,7 +12,7 @@ function SignUp() {
     const [step, setStep] = useState(1)
 
     const router = useRouter()
-
+    
 
     const loggedIn = useAppSelector(state => state.auth.id !== '')
 

@@ -7,6 +7,9 @@ import Link from 'next/link'
 
 import { BsEyeSlash, BsEye } from 'react-icons/bs'
 import axios from '@/axios'
+import BtnLoading from '@/components/BtnLoading'
+import { useAppDispatch } from '@/redux/store'
+import { setUser } from '@/redux/features/authSlice'
 
 type signUpFormProps = {
     increamentStep: () => void
@@ -16,6 +19,8 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
 
     const router = useRouter()
 
+    const dispatch = useAppDispatch()
+
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     const [firstName, setFirstName] = useState("")
@@ -24,7 +29,10 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleSignUp = async () => {
+        setIsLoading(true)
         if (firstName === "" || lastName === "" || email === "" || password === "" || confirmPassword === "") {
             alert("Please fill all the fields")
             return
@@ -43,17 +51,21 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
                 type: 'CUSTOMER'
             })
 
-            if (response.status === 200) {
-                const data = response.data
-                console.log(data);
-                if (data.success) {
-                    router.push('/auth/signin')
-                }
+            if (response.data.success) {
+                dispatch(setUser({
+                    id: response.data.data.id,
+                    email: response.data.data.email,
+                    first_name: response.data.data.first_name,
+                    last_name: response.data.data.last_name,
+                }))
+                router.push('/')
             }
-
 
         } catch (err) {
             console.log(err);
+        }
+        finally {
+            setIsLoading(false)
         }
     }
 
@@ -128,13 +140,13 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
                     </div>
                 </div>
                 {/* <div className="flex items-center">
-                    <input type="checkbox" id="remember" className="rounded checked:bg-red-500  focus:ring-0 active:right-0" />
+                    <input type="checkbox" id="remember" className="rounded checked:bg-blue-500  focus:ring-0 active:right-0" />
                     <label className="text-gray-600  text-sm ml-2" htmlFor="remember">Accept all privacy and policies</label>
                 </div> */}
                 <button
-                    className="py-2 my-3 bg-red-700 hover:bg-red-600 hover:shadow transition duration-300 ease-in-out text-white rounded-lg "
+                    className="py-2 my-3 bg-blue-700 hover:bg-blue-600 hover:shadow transition duration-300 ease-in-out text-white rounded-lg "
                     onClick={handleSignUp}
-                >Sign Up</button>
+                >{isLoading ? <BtnLoading /> : "Sign Up"}</button>
             </div>
             {/* <div className="divider">
                 <p>or</p>
@@ -148,7 +160,7 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
             </div> */}
 
             <div className="mt-8">
-                <p className="text-center text-sm font-semibold">Already have an account? <Link className='text-red-500' href="/auth/signin">Sign In</Link></p>
+                <p className="text-center text-sm font-semibold">Already have an account? <Link className='text-blue-500' href="/auth/signin">Sign In</Link></p>
             </div>
         </div>
     )
