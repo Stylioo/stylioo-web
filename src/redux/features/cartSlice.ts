@@ -6,7 +6,7 @@ type serviceType = {
     category: string,
     description?: string,
     price: number,
-    duration: string,
+    duration: number,
     status: string,
     createdAt: string,
     updatedAt: string,

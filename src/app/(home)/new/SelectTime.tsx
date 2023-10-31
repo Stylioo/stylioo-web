@@ -1,11 +1,11 @@
 import Container from '@/components/Container'
 import { newAppointmentStepPropType } from '@/types'
 import { AiOutlineArrowLeft, AiOutlineSearch, AiOutlineLeft, AiOutlineRight, } from "react-icons/ai";
-import Image from 'next/image';
+
 import { useEffect, useRef, useState } from "react";
 
 import listOfDays from '@/utils/listOfDays'
-import listOfTimeWithIntervals from '@/utils/listOfTimeWithIntervals'
+import generateTimeIntervals from '@/utils/listOfTimeWithIntervals'
 
 import { useAppSelector, useAppDispatch } from "@/redux/store"
 import { setDate, setStartTime } from '@/redux/features/cartSlice';
@@ -13,6 +13,7 @@ import formatNumber from '@/utils/formatNumber';
 import axios from '@/axios';
 import moment from 'moment';
 
+const workingHours = 8
 function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType) {
 
   const dispatch = useAppDispatch()
@@ -27,8 +28,13 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
     serviceRef.current?.scrollBy({ left: 200, behavior: 'smooth' })
   }
 
+  const [timeMatrix, setTimeMetrix] = useState<any>([])
+  const [dateMatrix, setDateMatrix] = useState<any>([])
+
   const handleDaySelect = (e: any) => {
     dispatch(setDate(e.target.id))
+    const tm = generateTimeMetrix(e.target.id)
+    setTimeMetrix(tm)
   }
 
   const handleTimeSelect = (e: any) => {
@@ -38,32 +44,81 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
 
   const [datesAndTimes, setDatesAndTimes] = useState<any>([])
 
-  const getAppointmentDateAndTimeByBeautician = async (beauticianId: string) => {
+  const getAppointmentDateAndTimeByBeautician = async () => {
     try {
-      console.log(beauticianId);
-      const response = await axios.get(`/appointment/dateAndTime/${beauticianId}`)
-      console.log(response.data.data);
+      const response = await axios.get(`/appointment/dateAndTime/${cart.beautician.id}`)
       if (response.data.success) {
         setDatesAndTimes(response.data.data)
+        setDateMatrix(generateDateMatrix(response.data.data))
+        setTimeMetrix(generateTimeMetrix(moment().add(1, 'days').format('YYYY-MM-DD')))
       } else {
         setDatesAndTimes([])
+        setDateMatrix(generateDateMatrix([]))
+        setTimeMetrix(generateTimeMetrix(moment().add(1, 'days').format('YYYY-MM-DD')))
       }
     } catch (err) {
       setDatesAndTimes([])
+      setDateMatrix(generateDateMatrix([]))
+      setTimeMetrix(generateTimeMetrix(moment().add(1, 'days').format('YYYY-MM-DD')))
       console.log(err);
+
     }
   }
 
   useEffect(() => {
     if (cart.beautician.id !== 'any') {
-      getAppointmentDateAndTimeByBeautician(cart.beautician.id)
+      const d = getAppointmentDateAndTimeByBeautician()
     }
   }, [])
 
 
-  useEffect(() => {
+
+  const generateDateMatrix = (datesAndTimes: any) => {
+    let dateMatrix = listOfDays()
+
     console.log(datesAndTimes);
-  }, [datesAndTimes])
+    if (datesAndTimes.length === 0) {
+
+      return dateMatrix
+    } else {
+      let temp = dateMatrix.map((date: any) => {
+        // console.log(date);
+
+        let totalDeuration = 0
+        datesAndTimes.forEach((dateAndTime: any) => {
+
+          if (moment(dateAndTime?.appointment_date).format('YYYY-MM-DD') === date.key) {
+            totalDeuration += parseInt(dateAndTime?.duration)
+          }
+        })
+
+        if (totalDeuration >= workingHours * 60) return { ...date, isDisabled: true }
+        return { ...date, isDisabled: false }
+      })
+
+      return temp
+    }
+  }
+
+
+  const generateTimeMetrix = (date: string) => {
+    let timeMatrix = generateTimeIntervals()
+
+    const obj = datesAndTimes.filter((dateAndTime: any) => moment(dateAndTime?.appointment_date).format('YYYY-MM-DD') === date)
+    if (obj === null) return timeMatrix
+
+    obj.forEach((dateAndTime: any) => {
+      const slots = parseInt(dateAndTime?.duration) / 15
+      const index = timeMatrix.findIndex((time: any) => time.time === (dateAndTime?.start_time || ''))
+      for (let i = 0; i < slots; i++) {
+        if (index + i >= 40) break
+        timeMatrix[index + i] = { ...timeMatrix[index + i], isDisabled: true }
+      }
+
+    })
+    return timeMatrix
+  }
+
 
   return (
     <>
@@ -94,16 +149,16 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
             <div ref={serviceRef} className="flex gap-2 h-[80px] overflow-y-auto hidden-scroll-bar ">
 
               {
-                listOfDays.map((listOfDay, index) => {
-                  const [date, month] = listOfDay.title.split(' ')
-                  let isDisabled = datesAndTimes.find((dateAndTime: any) => moment(dateAndTime?.appointment_date).format('YYYY-MM-DD') === listOfDay.key) ? true : false
+                dateMatrix.map((d: any, index: number) => {
+                  const [date, month] = d.title.split(' ')
+
                   return (
                     <div key={index} className="flex min-w-fit cursor-grab">
-                      <input name="date" type="radio" id={listOfDay.key} className='hidden t-check-box' onChange={handleDaySelect}
-                        checked={cart.date === listOfDay.key}
-                        disabled={isDisabled}
+                      <input name="date" type="radio" id={d.key} className='hidden t-check-box' onChange={handleDaySelect}
+                        checked={cart.date === d.key}
+                      // disabled={d.isDisabled}
                       />
-                      <label htmlFor={listOfDay.key} className={`px-4 py-2 border-2 h-full flex flex-col justify-center gap-1 items-center  min-w-[100px] rounded-2xl text-sm t-label ${isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-grab hover:border-red-500'}`}>
+                      <label htmlFor={d.key} className={`px-4 py-2 border-2 h-full flex flex-col justify-center gap-1 items-center  min-w-[100px] rounded-2xl text-sm t-label`}>
                         <p className='font-bold text-2xl'>{date}</p>
                         <p className='text-sm'>{month}</p>
                       </label>
@@ -138,15 +193,16 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
         <div className="rounded-lg min-h-[175px] lg:min-h-[250px]  border-gray-300 lg:mt-16">
           <div className="time-grid">
             {
-              listOfTimeWithIntervals.map((TimeWithInterval, index) => {
-                const [time, ampm] = TimeWithInterval.split(' ')
+
+              timeMatrix.map((TimeWithInterval: any, index: number) => {
+                const [time, ampm] = TimeWithInterval.time.split(' ')
                 return (
                   <div key={index} className="flex flex-col gap-2">
                     <input name="time" type="radio" id={`time-${time}`} value={`${time} ${ampm}`} className="hidden t-check-box" onChange={handleTimeSelect}
-                      disabled={false}
+                      disabled={TimeWithInterval.isDisabled}
                       checked={cart.startTime === `${time} ${ampm}`}
                     />
-                    <label htmlFor={`time-${time}`} className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm t-label">
+                    <label htmlFor={`time-${time}`} className={`cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm t-label ${TimeWithInterval.isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-grab hover:border-red-500'}`}>
                       <p className='font-bold text-md'>{time}</p>
                       <p className='text-sm'>{ampm}</p>
                     </label>

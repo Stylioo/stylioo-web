@@ -13,6 +13,7 @@ import formatNumber from "@/utils/formatNumber"
 import Loading from "@/components/Loading"
 import axios from "@/axios"
 import { BiXCircle } from "react-icons/bi"
+import { covertMinToHMin } from "@/utils/covertMinToHMin"
 
 type serviceType = {
     id: string,
@@ -20,7 +21,7 @@ type serviceType = {
     category: string,
     description?: string,
     price: number,
-    duration: string,
+    duration: number,
     status: string,
     createdAt: string,
     updatedAt: string,
@@ -199,7 +200,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                         <div className="flex justify-between items-center mb-4">
                                             <div className="flex flex-col">
                                                 <p className="font-bold text-lg transition duration-100 ease-in-out service-name">{service.name}</p>
-                                                <p className="text-sm">{service.duration} Hr</p>
+                                                <p className="text-sm">{covertMinToHMin(service.duration)}</p>
                                             </div>
                                             <div className="flex gap-2">
                                                 <p className="font-semibold text-lg transition duration-100 ease-in-out service-name">{
@@ -235,7 +236,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                                         <AiOutlineClose />
                                                     </button>
                                                 </div>
-                                                {/* <p className="text-sm ">{item.duration} Hr</p> */}
+                                                {/* <p className="text-sm ">{covertMinToHMin(service.duration)}</p> */}
                                                 <p className="text-sm">{
                                                     item.price === 0 ? "Free" : `LKR ${formatNumber(item.price)}`
                                                 }</p>
@@ -253,7 +254,10 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
 
                         <div className="flex justify-between items-end w-full px-6 py-4 box-shadow">
                             <div className="flex flex-col gap-1">
-                                <p className="text-sm ">{cart.services.length > 0 ? cart.services.length : "No"} Service</p>
+                                <p className="text-sm ">{cart.services.length > 0 ? cart.services.length : "No"} Service {
+                                    cart.services.length > 0 &&
+                                    " - (ET) " + covertMinToHMin(cart.services.reduce((acc: number, item: serviceType) => acc + item.duration, 0))
+                                }</p>
                                 <p className="font-bold text-xl">{cart.totalPrice === 0 ? "-" : `LKR ${formatNumber(cart.totalPrice)}`}</p>
                             </div>
                             <button

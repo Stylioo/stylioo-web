@@ -23,12 +23,10 @@ function generateDateArray() {
         title = `${day} ${currentDate.toLocaleDateString('en-US', { month: 'short' })}`;
 
 
-        dateArray.push({ key: dateString, title: title });
+        dateArray.push({ key: dateString, title: title, isDisabled: false });
     }
 
     return dateArray;
 }
 
-const generatedArray = generateDateArray();
-
-export default generatedArray;
+export default generateDateArray;

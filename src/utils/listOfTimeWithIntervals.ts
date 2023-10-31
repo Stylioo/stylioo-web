@@ -7,13 +7,15 @@ const generateTimeIntervals = () => {
 
     while (currentTime <= endTime) {
         const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        intervals.push(formattedTime);
+        intervals.push({
+            time: formattedTime,
+            isDisabled: false
+        });
         currentTime.setMinutes(currentTime.getMinutes() + 15);
     }
 
     return intervals;
 };
 
-const timeIntervals = generateTimeIntervals();
 
-export default timeIntervals;
+export default generateTimeIntervals;
