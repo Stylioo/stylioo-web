@@ -3,14 +3,16 @@ import Container from "@/components/Container"
 import "@/styles/newAppointment.scss"
 import { newAppointmentStepPropType } from "@/types"
 import { serviceCategories } from "@/data/services"
-import { useRef, useState, useEffect } from "react";
-import { AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
+import { useRef, useState, useEffect, ChangeEvent } from "react";
+import { AiOutlineClose, AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
 
 import useAxios from "@/hooks/useAxios"
 import { useAppSelector, useAppDispatch } from "@/redux/store"
 import { addToCart, removeFromCart } from "@/redux/features/cartSlice"
 import formatNumber from "@/utils/formatNumber"
 import Loading from "@/components/Loading"
+import axios from "@/axios"
+import { BiXCircle } from "react-icons/bi"
 
 type serviceType = {
     id: string,
@@ -32,9 +34,8 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
 
     const serviceRef = useRef<HTMLDivElement>(null)
 
-    // const [services, setServices] = useState<serviceType[]>([])
-    const [selectedServices, setSelectedServices] = useState<serviceType[]>([])
-    const [total, setTotal] = useState<number>(0.0)
+    const [services, setServices] = useState<serviceType[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const handleScrollLeft = () => {
         serviceRef.current?.scrollBy({ left: -200, behavior: 'smooth' })
@@ -46,20 +47,96 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
         let service = services?.find((service: any) => service.id === e.target.id)
         if (service) {
             if (e.target.checked) {
-                // setSelectedServices([...selectedServices, service])
                 dispatch(addToCart(service))
             } else {
-                // setSelectedServices(selectedServices.filter(service => service.id !== e.target.id))
                 dispatch(removeFromCart(service))
             }
         }
 
     }
 
-    const [services, error, loading, axiosFetch] = useAxios()
+    const remove = (serviceId: string) => {
+        let service = services?.find((service: any) => service.id === serviceId)
+        if (service) {
+            dispatch(removeFromCart(service))
+
+        }
+    }
+
+    const [searchTerm, setSearchTerm] = useState("")
+
+    const getAllServices = async () => {
+        try {
+            setIsLoading(true)
+            const res = await axios.get('/service')
+            if (res.data.success) {
+                setServices(res.data.data)
+            } else {
+                console.log([])
+            }
+
+        } catch (err) {
+            console.log(err)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const searchServices = async (e: ChangeEvent<HTMLInputElement>) => {
+        try {
+            setIsLoading(true)
+            let value = e.target.value
+            setSearchTerm(value)
+            const response = await axios.post('/service/search', {
+                q: value
+            })
+            if (response.data.success) {
+                setServices(response.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+            setServices([])
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const [selectedCategory, setSelectedCategory] = useState<string>('')
+
+    const handleCategorySelect = (e: ChangeEvent<HTMLInputElement>) => {
+        const categoryId = e.target.id
+        setSelectedCategory(categoryId)
+        // search function
+    }
+
+    const searchByCategory = async (categoryId: string) => {
+        try {
+            setIsLoading(true)
+            const response = await axios.post(`/service/search/category`, {
+                q: categoryId
+            })
+            if (response.data.success) {
+                setServices(response.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+            setServices([])
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     useEffect(() => {
-        axiosFetch({ method: 'get', url: '/service' })
+        console.log(selectedCategory);
+
+        if (selectedCategory !== '') {
+            searchByCategory(selectedCategory)
+        }
+    }, [selectedCategory])
+
+
+    useEffect(() => {
+        getAllServices()
     }, [])
 
 
@@ -78,8 +155,8 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                     </div>
                     <div className="flex flex-col gap-4 lg:items-center lg:flex-row lg:gap-16">
                         <div className=" flex lg:min-w-[400px] mb-2">
-                            <input type="text" className=" border rounded-l-lg px-4 grow border-r-0 search-box" placeholder="Search" />
-                            <button className="border border-l-0 border-red-700 bg-red-700 text-white rounded-r-lg px-4 hover:bg-red-600 hover:border-red-600 transition duration-300 ease-in-out" ><AiOutlineSearch className="text-xl" /></button>
+                            <input type="text" className=" border rounded-lg px-4 grow search-box" onChange={searchServices} placeholder="Search" />
+                            {/* <button className="border border-l-0 border-red-700 bg-red-700 text-white rounded-r-lg px-4 hover:bg-red-600 hover:border-red-600 transition duration-300 ease-in-out" ><AiOutlineSearch className="text-xl" /></button> */}
                         </div>
                         <div className="flex gap-4  overflow-y-auto hidden-scroll-bar ">
                             <button
@@ -93,14 +170,13 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                 {
                                     serviceCategories.map((category, index) => (
                                         <div key={index} className="flex min-w-fit cursor-grab">
-                                            <input name="type" type="radio" id={category.id} className="hidden t-check-box" />
+                                            <input name="type" type="radio" id={category.id} className="hidden t-check-box" onChange={handleCategorySelect} />
                                             <label htmlFor={category.id} className="cursor-grab px-4 py-2 border-2 min-w-fit rounded-2xl text-sm t-label">{category.name}</label>
                                         </div>
                                     ))
                                 }
                             </div>
                             <button
-                                // className="border border-gray-300 rounded-full flex justify-center items-center p-3 bg-gray-800 hover:bg-gray-700 text-white transition duration-300 ease-in-out"
                                 className="rounded-full flex justify-center items-center p-3 hover:bg-gray-100 transition duration-300 ease-in-out"
                                 onClick={handleScrollRight}
                             >
@@ -110,10 +186,10 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                     </div>
                 </Container>
             </div>
-            <Container className="grid lg:grid-cols-3 gap-8" >
-                <div className="lg:col-span-2 lg:mt-16">
+            <Container className="grid lg:grid-cols-5 gap-8" >
+                <div className="lg:col-span-3">
                     {
-                        loading ? <Loading /> : error ? <p>{error}</p> :
+                        isLoading ? <Loading /> : services.length <= 0 ? <p className="text-gray-400">No services found</p> :
                             services?.map((service: any, index: number) => (
                                 <div key={index} className="mb-4">
                                     <input type="checkbox" id={service.id} className="hidden service-check-box" onChange={handleCheckbox}
@@ -142,7 +218,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                 </div>
                 <div className="lg:hidden min-h-[50px]"></div>
 
-                <div className="">
+                <div className="lg:col-span-2">
                     <div className="min-h-[100px] fixed bottom-0 left-0 right-0 lg:pt-6 bg-white lg:min-h-[450px] lg:sticky lg:top-[210px] lg:border-2 lg:rounded-lg lg:flex lg:flex-col">
 
                         <div className="grow lg:h-[350px] overflow-y-scroll hidden-scroll-bar hidden lg:block ">
@@ -150,13 +226,20 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                 cart.services.length > 0 ?
                                     cart.services.map((item: serviceType, index) => (
                                         <div key={index} className="justify-between items-end mb-4 lg:flex mx-6 border-b-2 pb-2">
-                                            <div className="flex flex-col gap-1">
-                                                <p className="font-semibold text-md">{item.name}</p>
-                                                <p className="text-sm ">{item.duration} Hr</p>
+                                            <div className="flex flex-col gap-1 w-full">
+                                                <div className="flex justify-between w-full">
+                                                    <p className="font-semibold text-md">{item.name}</p>
+                                                    <button
+                                                        onClick={() => remove(item.id)}
+                                                    >
+                                                        <AiOutlineClose />
+                                                    </button>
+                                                </div>
+                                                {/* <p className="text-sm ">{item.duration} Hr</p> */}
+                                                <p className="text-sm">{
+                                                    item.price === 0 ? "Free" : `LKR ${formatNumber(item.price)}`
+                                                }</p>
                                             </div>
-                                            <p className="font-semibold text-lg">{
-                                                item.price === 0 ? "Free" : `LKR ${formatNumber(item.price)}`
-                                            }</p>
                                         </div>
                                     ))
                                     :

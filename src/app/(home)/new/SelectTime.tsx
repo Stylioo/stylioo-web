@@ -2,7 +2,7 @@ import Container from '@/components/Container'
 import { newAppointmentStepPropType } from '@/types'
 import { AiOutlineArrowLeft, AiOutlineSearch, AiOutlineLeft, AiOutlineRight, } from "react-icons/ai";
 import Image from 'next/image';
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import listOfDays from '@/utils/listOfDays'
 import listOfTimeWithIntervals from '@/utils/listOfTimeWithIntervals'
@@ -10,6 +10,8 @@ import listOfTimeWithIntervals from '@/utils/listOfTimeWithIntervals'
 import { useAppSelector, useAppDispatch } from "@/redux/store"
 import { setDate, setStartTime } from '@/redux/features/cartSlice';
 import formatNumber from '@/utils/formatNumber';
+import axios from '@/axios';
+import moment from 'moment';
 
 function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType) {
 
@@ -32,6 +34,36 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
   const handleTimeSelect = (e: any) => {
     dispatch(setStartTime(e.target.value))
   }
+
+
+  const [datesAndTimes, setDatesAndTimes] = useState<any>([])
+
+  const getAppointmentDateAndTimeByBeautician = async (beauticianId: string) => {
+    try {
+      console.log(beauticianId);
+      const response = await axios.get(`/appointment/dateAndTime/${beauticianId}`)
+      console.log(response.data.data);
+      if (response.data.success) {
+        setDatesAndTimes(response.data.data)
+      } else {
+        setDatesAndTimes([])
+      }
+    } catch (err) {
+      setDatesAndTimes([])
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    if (cart.beautician.id !== 'any') {
+      getAppointmentDateAndTimeByBeautician(cart.beautician.id)
+    }
+  }, [])
+
+
+  useEffect(() => {
+    console.log(datesAndTimes);
+  }, [datesAndTimes])
 
   return (
     <>
@@ -64,10 +96,14 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
               {
                 listOfDays.map((listOfDay, index) => {
                   const [date, month] = listOfDay.title.split(' ')
+                  let isDisabled = datesAndTimes.find((dateAndTime: any) => moment(dateAndTime?.appointment_date).format('YYYY-MM-DD') === listOfDay.key) ? true : false
                   return (
                     <div key={index} className="flex min-w-fit cursor-grab">
-                      <input name="date" type="radio" id={listOfDay.key} className="hidden t-check-box" onChange={handleDaySelect} />
-                      <label htmlFor={listOfDay.key} className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center gap-1 items-center  min-w-[100px] rounded-2xl text-sm t-label">
+                      <input name="date" type="radio" id={listOfDay.key} className='hidden t-check-box' onChange={handleDaySelect}
+                        checked={cart.date === listOfDay.key}
+                        disabled={isDisabled}
+                      />
+                      <label htmlFor={listOfDay.key} className={`px-4 py-2 border-2 h-full flex flex-col justify-center gap-1 items-center  min-w-[100px] rounded-2xl text-sm t-label ${isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-grab hover:border-red-500'}`}>
                         <p className='font-bold text-2xl'>{date}</p>
                         <p className='text-sm'>{month}</p>
                       </label>
@@ -106,7 +142,10 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
                 const [time, ampm] = TimeWithInterval.split(' ')
                 return (
                   <div key={index} className="flex flex-col gap-2">
-                    <input name="time" type="radio" id={`time-${time}`} value={`${time} ${ampm}`} className="hidden t-check-box" onChange={handleTimeSelect} />
+                    <input name="time" type="radio" id={`time-${time}`} value={`${time} ${ampm}`} className="hidden t-check-box" onChange={handleTimeSelect}
+                      disabled={false}
+                      checked={cart.startTime === `${time} ${ampm}`}
+                    />
                     <label htmlFor={`time-${time}`} className="cursor-grab px-4 py-2 border-2 h-full flex flex-col justify-center items-center  min-w-[100px] rounded-2xl text-sm t-label">
                       <p className='font-bold text-md'>{time}</p>
                       <p className='text-sm'>{ampm}</p>

@@ -24,7 +24,7 @@ type cartType = {
     services: serviceType[],
     totalPrice: number,
     date: string,
-    startTme: string,
+    startTime: string,
     beautician?: beauticianType,
 }
 
@@ -32,8 +32,13 @@ const initialState = {
     services: [],
     totalPrice: 0,
     date: "",
-    startTme: "",
-    beautician: undefined,
+    startTime: "",
+    beautician: {
+        id: '',
+        first_name: '',
+        last_name: '',
+        email: ''
+    },
 }
 
 const cartSlice = createSlice({
@@ -63,7 +68,7 @@ const cartSlice = createSlice({
         },
 
         setStartTime: (state: cartType, action: PayloadAction<string>) => {
-            state.startTme = action.payload
+            state.startTime = action.payload
         },
 
         // setEndTime: (state: cartType, action: PayloadAction<string>) => {

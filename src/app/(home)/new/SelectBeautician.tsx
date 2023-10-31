@@ -82,7 +82,9 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:mt-16">
                             <div className="">
-                                <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
+                                <input type="radio" name="beautician" id="any" className="hidden beautician-check-box" onChange={handleRadioBtnCheck}
+                                    checked={cart.beautician?.id === 'any'}
+                                />
                                 <label htmlFor="any" className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer beautician-label">
                                     <Image width="64" height="64" className="rounded-xl no-preference-image" src={DefaultBeauticians} alt=""></Image>
                                     <div className="">
@@ -95,7 +97,9 @@ function SelectBeautician({ step, handleNext, handleBack }: newAppointmentStepPr
                             {
                                 beauticians?.map((beautician: any, index: number) => (
                                     <div key={index}>
-                                        <input type="radio" name="beautician" id={beautician.id} className="hidden beautician-check-box" onChange={handleRadioBtnCheck} />
+                                        <input type="radio" name="beautician" id={beautician.id} className="hidden beautician-check-box" onChange={handleRadioBtnCheck}
+                                            checked={beautician.id === cart.beautician?.id}
+                                        />
                                         <label htmlFor={beautician.id} className="flex items-center gap-6 border-2 rounded-xl hover:shadow transition duration-100 ease-in-out p-4 cursor-pointer select-none beautician-label">
                                             <Image width="64" height="64" className="rounded-full border-2 border-white" src={`https://stylioo.blob.core.windows.net/images/${beautician.image}` ?? DefaultBeauticians} alt=""></Image>
                                             <div className="">

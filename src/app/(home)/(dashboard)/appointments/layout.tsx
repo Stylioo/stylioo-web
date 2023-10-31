@@ -6,6 +6,7 @@ import { AppointmentLayoutPropType } from '@/types/layout'
 import Navbar from "@/components/Navbar/Navbar"
 import SideMenu from './SideMenu'
 import { usePathname } from 'next/navigation'
+import ReduxProvider from '@/redux/Provider'
 
 function AppointmentLayout({ children }: AppointmentLayoutPropType) {
 
@@ -25,10 +26,8 @@ function AppointmentLayout({ children }: AppointmentLayoutPropType) {
 
 
         <>
-            <Navbar />
-            <div
-                className="mt-14"
-            >
+
+            <ReduxProvider>
                 <Container
                     className='my-[2rem] flex flex-col lg:flex-row gap-8'
                 >
@@ -41,7 +40,7 @@ function AppointmentLayout({ children }: AppointmentLayoutPropType) {
                     </div>
 
                 </Container>
-            </div>
+            </ReduxProvider>
         </>
     )
 }

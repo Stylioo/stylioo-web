@@ -1,9 +1,12 @@
+'use client'
 import Section from "@/components/Section"
 import Image from "next/image"
 import Link from "next/link"
 import '@/styles/homePage.scss'
+import useAuth from "@/hooks/useAuth"
 
 function Hero() {
+
     return (
         <div className="bg-cover bg-center  h-screen md:h-[40rem] lg:h-[32rem] relative select-none">
             <Image

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { useAppSelector } from '@/redux/store'
 import formatNumber from '@/utils/formatNumber'
-import axios from 'axios'
+import axios from '@/axios'
 
 type serviceType = {
     id: string,
@@ -31,33 +31,31 @@ function Verify({ step, handleBack }: newAppointmentStepPropType) {
         console.log("clicked");
 
         try {
-            const response = await axios.post('http://localhost:5400/appointment', {
+            const response = await axios.post('/appointment', {
+                customer_id: currrentUser.id,
                 date: cart.date,
-                startTime: cart.startTme,
-                services: cart.services,
-                beautician: cart.beautician,
-                customer: currrentUser,
-                totalPrice: cart.totalPrice,
+                startTime: cart.startTime,
+                duration: cart.services?.reduce((total: any, service: any) => total + service.duration, 0) || [],
+                beautician_id: cart.beautician.id,
+                services: cart.services?.map((service: any) => service.id) || [],
+                total: cart.totalPrice,
+                advanced_payment_amount: 0,
+                sub_total: cart.totalPrice,
             })
 
-            if (response.status === 200) {
-                if (response.data.success) {
-                    console.log("success");
-                    console.log(response.data.data)
-                    router.push('/appointments/upcomming')
-                } else {
-                    console.log("failed");
-                    router.push('/newAppointment')
-                }
+            if (response.data.success) {
+                console.log("success");
+                console.log(response.data.data)
+                router.push('/appointments/upcomming')
             }
             else {
                 console.log("failed");
-                router.push('/newAppointment')
+                router.push('/new')
             }
 
         } catch (err) {
             console.log(err)
-            router.push('/newAppointment')
+            router.push('/new')
         }
     }
 
@@ -90,7 +88,7 @@ function Verify({ step, handleBack }: newAppointmentStepPropType) {
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <span className="text-gray-600 text-sm">Time</span>
-                                    <span className="font-bold">{cart.startTme}</span>
+                                    <span className="font-bold">{cart.startTime}</span>
                                 </div>
                             </div>
 

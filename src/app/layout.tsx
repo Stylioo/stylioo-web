@@ -1,4 +1,5 @@
 
+import ReduxProvider from '@/redux/Provider'
 import './globals.scss'
 import { childrenPropType } from '@/types'
 

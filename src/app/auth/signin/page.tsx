@@ -49,27 +49,20 @@ function SignIn() {
             return
         }
         try {
-            const response = await axios.post('/auth/signin', {
+            const response = await axios.post('/auth/customer/signin', {
                 email: email,
                 password: password,
                 type: 'CUSTOMER'
             })
 
-            if (response.status === 200) {
-                const data = response.data
-                console.log(data);
-                if (!data.success) {
-                    alert(data.message)
-                    return
-                }
-
+            if (response.data.success) {
+                const data = response.data.data
                 dispatch(setUser({
-                    id: data.data.uid,
-                    email: data.data.email,
-                    first_name: data.data.first_name,
-                    last_name: data.data.last_name,
+                    id: data.id,
+                    email: data.email,
+                    first_name: data.first_name,
+                    last_name: data.last_name,
                 }))
-
                 router.push('/')
             }
 

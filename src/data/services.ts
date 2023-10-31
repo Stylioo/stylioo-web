@@ -1,15 +1,12 @@
 
 export const serviceCategories = [
-    { id: 'grooming', name: 'Grooming' },
-    { id: 'interview', name: 'Interview' },
-    { id: 'featured', name: 'Featured' },
-    { id: 'dermalabs_treatments', name: 'Dermalabs Treatments' },
-    { id: 'consultation', name: 'Consultation' },
-    { id: 'ladies_hair_cuts', name: 'Ladies Hair cuts' },
-    { id: 'featured', name: 'Featured' },
-    { id: 'dermalabs_treatments', name: 'Dermalabs Treatments' },
-    { id: 'consultation', name: 'Consultation' },
-    { id: 'ladies_hair_cuts', name: 'Ladies Hair cuts' },
+    { id: 'all', name: 'All' },
+    { id: 'hair', name: 'Hair' },
+    { id: 'facial', name: 'Facial' },
+    { id: 'menicure', name: 'Menicure' },
+    { id: 'pedicure', name: 'Pedicure' },
+    { id: 'makeup', name: 'makeup' },
+    { id: 'other', name: 'Other' },
 ]
 
 export const services = [

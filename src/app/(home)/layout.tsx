@@ -1,11 +1,16 @@
 
-import Navbar from "@/components/Navbar/Navbar"
+import NavbarProvider from "@/components/Navbar/NavbarProvider"
+import ReduxProvider from "@/redux/Provider"
 import { childrenPropType } from '@/types'
 export default function RootLayout({ children }: childrenPropType) {
   return (
     <div>
-      <Navbar />
-      {children}
+      <main
+        className="mt-14"
+      >
+        <NavbarProvider />
+        {children}
+      </main>
     </div>
   )
 }

@@ -4,8 +4,9 @@ import '@/styles/auth.scss'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import axios from 'axios'
+
 import { BsEyeSlash, BsEye } from 'react-icons/bs'
+import axios from '@/axios'
 
 type signUpFormProps = {
     increamentStep: () => void
@@ -34,7 +35,7 @@ function SignUpForm({ increamentStep }: signUpFormProps) {
         }
 
         try {
-            const response = await axios.post('http://localhost:5400/auth/register', {
+            const response = await axios.post('/auth/customer/signup', {
                 first_name: firstName,
                 last_name: lastName,
                 email: email,
