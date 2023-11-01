@@ -200,7 +200,7 @@ function SelectService({ step, handleNext }: newAppointmentStepPropType) {
                                         <div className="flex justify-between items-center mb-4">
                                             <div className="flex flex-col">
                                                 <p className="font-bold text-lg transition duration-100 ease-in-out service-name">{service.name}</p>
-                                                <p className="text-sm">{covertMinToHMin(service.duration)}</p>
+                                                <p className="text-sm">ET: {covertMinToHMin(service.duration)}</p>
                                             </div>
                                             <div className="flex gap-2">
                                                 <p className="font-semibold text-lg transition duration-100 ease-in-out service-name">{

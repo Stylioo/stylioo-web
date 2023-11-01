@@ -7,6 +7,7 @@ import formatNumber from "@/utils/formatNumber"
 import moment from "moment"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import CancelDialog from "../CancelDialog"
 
 type UpcommingType = {
     id: string,
@@ -49,9 +50,41 @@ function AppointmentPage() {
         getAllAppointments()
     }, [])
 
+    const [isCancelDialogOpen, setIsCancelDialogOpen] = useState<boolean>(false)
+    const [selectedAppointmentId, setSelectedAppointmentId] = useState<string>("")
+
+    const handleCancelDialogClose = () => {
+        setIsCancelDialogOpen(false)
+
+    }
+
+    const cancelAppointment = async () => {
+        try {
+            setIsLoading(true)
+            const response = await axios.patch(`/appointment/statusByCustomer/${selectedAppointmentId}`, {
+                status: "canceled",
+                // status_changed_by: ''
+            })
+            if (response.data.success) {
+                getAllAppointments()
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsLoading(false)
+            setIsCancelDialogOpen(false)
+        }
+    }
+
     return (
         <>
             <Container className="">
+                <CancelDialog
+                    isOpen={isCancelDialogOpen}
+                    isLoading={isLoading}
+                    onClose={handleCancelDialogClose}
+                    onOk={cancelAppointment}
+                />
                 <div className="bg-white pt-8 pb-4 border-b sticky top-14">
                     <h1 className="text-xl font-semibold mb-2">Upcomming Appointments</h1>
                 </div>
@@ -95,6 +128,10 @@ function AppointmentPage() {
 
                                         <button
                                             className="border-gray-500 text-gray-600 border px-3 py-1 rounded-lg text-sm mt-2 mr-2"
+                                            onClick={() => {
+                                                setSelectedAppointmentId(appointment.id)
+                                                setIsCancelDialogOpen(true)
+                                            }}
                                         >cancel</button>
                                     </div>
 

@@ -13,6 +13,7 @@ import formatNumber from '@/utils/formatNumber';
 import axios from '@/axios';
 import moment from 'moment';
 import Loading from '@/components/Loading';
+import { covertMinToHMin } from '@/utils/covertMinToHMin';
 
 const workingHours = 8
 function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType) {
@@ -224,7 +225,10 @@ function SelectTime({ step, handleNext, handleBack }: newAppointmentStepPropType
       <div className="min-h-[100px] fixed bottom-0 left-0 right-0 bg-white box-shadow ">
         <div className="max-w-7xl lg:mx-auto flex justify-between items-end w-full px-6 py-4 ">
           <div className="flex flex-col gap-1">
-            <p className="text-sm ">{cart.services.length > 0 ? cart.services.length : "No"} Service</p>
+            <p className="text-sm ">{cart.services.length > 0 ? cart.services.length : "No"} Service {
+              cart.services.length > 0 &&
+              " - (ET) " + covertMinToHMin(cart.services.reduce((acc: number, item: any) => acc + item.duration, 0))
+            }</p>
             <p className="font-bold text-xl">{cart.totalPrice === 0 ? "-" : `LKR ${formatNumber(cart.totalPrice)}`}</p>
           </div>
           <button
