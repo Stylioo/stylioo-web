@@ -25,12 +25,12 @@ const menuItems = [
         icon: <AiOutlineClockCircle />,
         slug: '/appointments/canceled'
     },
-    {
-        name: 'My Profile',
-        icon: <BiUserCircle />,
-        slug: '/profile'
+    // {
+    //     name: 'My Profile',
+    //     icon: <BiUserCircle />,
+    //     slug: '/profile'
 
-    },
+    // },
     // {
     //     name: 'Help & Support',
     //     icon: <BiHelpCircle />,
@@ -46,7 +46,7 @@ function SideMenu() {
     return (
         <div className=" pt-8 pb-4 sticky top-14 px-4 bg-white">
             {/* <Link href="/appointment/new"
-                className="w-full transition rounded duration-200 ease-in-out flex items-center justify-start text-left gap-2 px-4 py-3 hover:bg-red-600 hover:text-white"
+                className="w-full transition rounded duration-200 ease-in-out flex items-center justify-start text-left gap-2 px-4 py-3 hover:bg-blue-600 hover:text-white"
             >
                 Make new appointment
             </Link> */}
@@ -54,7 +54,7 @@ function SideMenu() {
                 {
                     menuItems.map(item => (
                         <div key={item.slug} className="">
-                            <Link href={item.slug} className={`w-full transition rounded duration-200 ease-in-out flex items-center justify-start text-left gap-2 px-4 py-3 hover:bg-red-600 hover:text-white ${item.slug === currentPath && 'bg-red-600 text-white'}`}>
+                            <Link href={item.slug} className={`w-full transition rounded duration-200 ease-in-out flex items-center justify-start text-left gap-2 px-4 py-3 hover:bg-blue-600 hover:text-white ${item.slug === currentPath && 'bg-blue-600 text-white'}`}>
                                 <span>{item.icon}</span>
                                 <p className="text-sm">{item.name}</p>
                             </Link>
@@ -62,7 +62,6 @@ function SideMenu() {
                     ))
                 }
             </div >
-
         </div>
     )
 }

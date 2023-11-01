@@ -6,7 +6,7 @@ function NoDataFound() {
         <div className='h-[50vh] flex flex-col justify-center items-center'>
             <p className='text-xl font-semibold text-gray-600'>No Data Found.</p>
             <p className='text-sm text-gray-600'>
-                Make a new appointment <Link href='/appointment/new' className='text-blue-400'>here</Link> or try again later.
+                Make a new appointment <Link href='/new' className='text-blue-400'>here</Link> or try again later.
             </p>
         </div>
     )

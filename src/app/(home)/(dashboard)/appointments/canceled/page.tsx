@@ -41,7 +41,7 @@ function AppointmentPage() {
                 <div className="bg-white pt-8 pb-4 border-b sticky top-14">
                     <h1 className="text-xl font-semibold mb-2">Canceled Appointments</h1>
                 </div>
-                <div className="mt-6">
+                <div className="mt-6 min-h-[325px]">
                     {
                         isLoading ? <Loading /> : previous.length <= 0 ? <NoDataFound /> : previous.map((appointment, index) => {
                             return (

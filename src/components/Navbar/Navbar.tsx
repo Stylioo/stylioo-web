@@ -5,13 +5,13 @@ import Link from "next/link";
 
 export default function NavbarWithDropdown() {
     return (
-        <div className="bg-white h-16 fixed top-0 left-0 right-0 z-[1000] shadow-md">
+        <div className="bg-gray-800 h-16 fixed top-0 left-0 right-0 z-[1000] shadow-md">
             <Container className="h-full">
                 <div className="flex justify-between items-center h-full">
                     <div className="flex gap-4 items-center">
                         <div className="flex items-center gap-2 mr-12">
                             {/* <img src="/images/logo.png" alt="logo" className="h-8" /> */}
-                            <Link href="/" className="text-blue-600 font-semibold text-xl">Stylioo</Link>
+                            <Link href="/" className="text-white font-semibold text-xl">Stylioo</Link>
                         </div>
                         {/* <div className="flex gap-4">
                             <div className="flex items-center gap-2">

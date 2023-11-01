@@ -55,7 +55,7 @@ function AppointmentPage() {
                 <div className="bg-white pt-8 pb-4 border-b sticky top-14">
                     <h1 className="text-xl font-semibold mb-2">Upcomming Appointments</h1>
                 </div>
-                <div className="mt-6">
+                <div className="mt-6 min-h-[325px]">
                     {
                         isLoading ? <Loading /> : Upcomming.length <= 0 ? <NoDataFound /> : Upcomming.map((appointment, index) => {
                             console.log(appointment);

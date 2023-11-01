@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar/Navbar"
 import SideMenu from './SideMenu'
 import { usePathname } from 'next/navigation'
 import ReduxProvider from '@/redux/Provider'
+import Footer from '@/components/Footer'
 
 function AppointmentLayout({ children }: AppointmentLayoutPropType) {
 
@@ -20,11 +21,11 @@ function AppointmentLayout({ children }: AppointmentLayoutPropType) {
                         <SideMenu />
                     </div>
 
-                    <div className="grow">
+                    <div className="flex-grow">
                         {children}
                     </div>
-
                 </Container>
+                <Footer />
             </ReduxProvider>
         </>
     )

@@ -41,8 +41,8 @@ function Menu() {
                         >
                             <Image src="https://stylioo.blob.core.windows.net/images/cat.png" alt="user" width={40} height={40} />
                             <div className="flex flex-col justify-center items-start">
-                                <p className="text-sm text-gray-800">{currentUser.first_name} {currentUser.last_name}</p>
-                                <p className="text-[10px] text-blue-600">{currentUser.email} </p>
+                                <p className="text-sm text-gray-200">{currentUser.first_name} {currentUser.last_name}</p>
+                                <p className="text-[10px] text-blue-200">{currentUser.email} </p>
                             </div>
                         </button>
 
